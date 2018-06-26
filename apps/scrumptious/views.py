@@ -12,7 +12,10 @@ def login(request):
     return render(request, "scrumptious/login.html")
 
 def projects(request):
-    return HttpResponse("User projects page")
+    return render(request,"scrumptious/projects.html")
+
+def board(request,boardID):
+    return render(request,"scrumptious/board.html")
 
 
 #Actions

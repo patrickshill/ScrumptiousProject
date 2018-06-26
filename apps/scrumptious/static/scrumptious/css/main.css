@@ -35,6 +35,9 @@
   background-color: #673ab7;
   color: white;
 }
+h2 {
+  font-size: 16pt;
+}
 .container {
   margin: 0 auto;
   max-width: 960px;
@@ -55,6 +58,7 @@
 }
 .row {
   width: 100%;
+  font-size: 0;
 }
 p {
   margin: 10px auto;
@@ -63,19 +67,68 @@ p {
 }
 .col-12 {
   display: inline-block;
+  vertical-align: top;
   width: 100%;
+  height: 100%;
+}
+.col-11 {
+  display: inline-block;
+  vertical-align: top;
+  width: 91.66%;
+  height: 100%;
+}
+.col-10 {
+  display: inline-block;
+  vertical-align: top;
+  width: 83.33%;
+  height: 100%;
+}
+.col-9 {
+  display: inline-block;
+  vertical-align: top;
+  width: 75%;
+  height: 100%;
+}
+.col-8 {
+  display: inline-block;
+  vertical-align: top;
+  width: 66.66%;
+  height: 100%;
 }
 .col-6 {
   display: inline-block;
+  vertical-align: top;
   width: 50%;
+  height: 100%;
+}
+.col-5 {
+  display: inline-block;
+  vertical-align: top;
+  width: 41.66%;
+  height: 100%;
 }
 .col-4 {
   display: inline-block;
+  vertical-align: top;
   width: 33.33%;
+  height: 100%;
 }
 .col-3 {
   display: inline-block;
+  vertical-align: top;
   width: 25%;
+  height: 100%;
+}
+.col-2 {
+  display: inline-block;
+  vertical-align: top;
+  width: 16.66%;
+  height: 100%;
+}
+.col-1 {
+  display: inline-block;
+  vertical-align: top;
+  width: 8.33%;
   height: 100%;
 }
 @media only screen and (max-width: 600px) {
@@ -90,6 +143,9 @@ p {
   }
   .col-3-sm {
     width: 33.33%;
+  }
+  .col-2-sm {
+    width: 16.66%;
   }
   .sm-display-none {
     display: none;
@@ -115,6 +171,46 @@ p {
   color: white;
   text-decoration: none;
 }
+.side-nav {
+  flex-grow: 1;
+  margin: 35px 10px auto auto;
+  height: 100%;
+  font-size: 12pt;
+}
+@media only screen and (max-width: 600px) {
+  .side-nav {
+    background-color: #222;
+    color: white;
+    display: flex;
+    justify-content: space-evenly;
+    margin: 0;
+    padding: 0;
+  }
+}
+.side-nav ul {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+.side-nav li {
+  list-style: none;
+}
+@media only screen and (max-width: 600px) {
+  .side-nav li {
+    display: flex;
+    padding: 10px 15px;
+  }
+}
+.side-nav li a {
+  text-decoration: none;
+  color: black;
+  margin-bottom: 10px;
+}
+@media only screen and (max-width: 600px) {
+  .side-nav li a {
+    color: white;
+  }
+}
 .table {
   margin: 0;
   width: 100%;
@@ -126,4 +222,104 @@ input {
   font-size: 12pt;
   border-radius: 4px;
   border: 2px solid #F0F0F0;
+}
+.projects-board-container {
+  padding: 5px 5px 0 0;
+}
+.projects-board {
+  display: inline-block;
+  padding: 10px;
+  background-color: #009688;
+  width: 100%;
+  height: 100px;
+  border-radius: 4px;
+  color: white;
+  font-size: 12pt;
+  vertical-align: top;
+  text-overflow: ellipsis;
+  transition: background-color 0.33s ease;
+}
+.projects-board:hover {
+  background-color: #4db6ac;
+}
+.projects-board-add {
+  display: inline-block;
+  padding: 10px;
+  width: 100%;
+  height: 100px;
+  vertical-align: top;
+  background-color: #999;
+  color: white;
+  font-size: 20pt;
+  text-align: center;
+  line-height: 80px;
+  border-radius: 4px;
+  transition: background-color 0.33s ease;
+}
+.projects-board-add:hover {
+  background-color: #bbbbbb;
+}
+html {
+  height: 100%;
+}
+body {
+  height: 100%;
+}
+.board-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  padding-top: 45px;
+  overflow-x: scroll;
+  height: 100vh;
+}
+@media only screen and (max-width: 600px) {
+  .board-container {
+    text-align: center;
+  }
+}
+.list {
+  display: inline-block;
+  vertical-align: top;
+  margin: 20px;
+  padding-bottom: 10px;
+  width: 360px;
+  min-height: 80px;
+  text-align: left;
+  background-color: #fafafa;
+  box-shadow: 0px 2px 4px #222;
+  border-top-right-radius: 4px;
+  border-bottom-left-radius: 4px;
+}
+.list ul {
+  list-style-type: none;
+}
+@media only screen and (max-width: 600px) {
+  .list {
+    margin: 20px auto 20px auto;
+    width: 90%;
+  }
+}
+.list-header {
+  padding: 10px;
+  background-color: #333;
+  color: white;
+  font-size: 16pt;
+  font-weight: 600;
+  border-top-right-radius: 4px;
+}
+.task {
+  margin: 10px;
+  padding: 10px;
+  min-height: 80px;
+  background-color: #cfcfcf;
+  border-radius: 4px;
+}
+.task-add {
+  margin: 10px;
+  padding-left: 10px;
+  background-color: #cfcfcf;
+  border-radius: 4px;
+  font-size: 12pt;
+  line-height: 40px;
 }

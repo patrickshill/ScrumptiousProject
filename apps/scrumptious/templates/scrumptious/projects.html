@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'scrumptious/css/main.css' %}">
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <title>Scrumptious | Projects</title>
+</head>
+<body>
+    <!-- Navigation bar -->
+    <div class="row nav">
+        <div class="container">
+            <a href="/"><h2>SCRUMPTIOUS</h2></a>
+        </div>
+    </div>
+    <div class="container">
+        <!-- Content Section Main -->
+        <div class="row">
+            <div class="col-2 col-12-sm align-right">
+                <ul class="side-nav">
+                    <li><a href="#">Home</a></li>
+                    <li><a href="/projects">Boards</a></li>
+                    <li><a href="#">Teams</a></li>
+                </ul>
+            </div>
+            <div class="col-8 col-12-sm content content-light">
+                <!-- Personal Boards -->
+                <div class="row">
+                    <h1>Projects</h1>
+                    <h2>Personal Boards</h2>
+                </div>
+                <div class="row">
+                    <div class="col-3 col-6-sm projects-board-container">
+                        <a href="/board/1" class="projects-board">Board 1</a>
+                    </div>
+                    <div class="col-3 col-6-sm projects-board-container">
+                        <a href="#" class="projects-board">Board 2</a>
+                    </div>
+                    <div class="col-3 col-6-sm projects-board-container">
+                        <a href="#" class="projects-board">Board 3</a>
+                    </div>
+                    <div class="col-3 col-6-sm projects-board-container">
+                        <a href="#" class="projects-board">Board 4</a>
+                    </div>
+                    <div class="col-3 col-6-sm projects-board-container">
+                        <a href="#" class="projects-board-add">+</a>
+                    </div>
+                </div>
+
+                <!-- Team boards -->
+                <div class="row">
+                    <p></p>
+                    <h2>Team Boards</h2>
+                </div>
+                <div class="row">
+                    <div class="col-3 col-6-sm projects-board-container">
+                        <div class="projects-board">Team board 1</div>
+                    </div>
+                    <div class="col-3 col-6-sm projects-board-container">
+                        <div class="projects-board-add">+</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-2 sm-display-none"></div>
+        </div>
+    </div>
+</body>
+</html>

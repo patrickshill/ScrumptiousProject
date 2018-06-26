@@ -9,4 +9,5 @@ urlpatterns = [
     url(r'^login$', views.login),
     url(r'^login_user$', views.loginUser),
     url(r'^projects$', views.projects),
+    url(r'^board/(?P<boardID>\d+)$', views.board),
 ]
