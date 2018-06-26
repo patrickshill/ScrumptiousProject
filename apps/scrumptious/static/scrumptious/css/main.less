@@ -318,7 +318,7 @@ body {
     vertical-align: top;
     margin: 20px;
     padding-bottom: 10px;
-    width: 360px;
+    width: 320px;
     min-height: 80px;
     text-align: left;
     background-color: @content-color-light;
@@ -349,10 +349,21 @@ body {
     border-radius: @border-radius-normal;
 }
 .task-add {
-    margin:10px;
-    padding-left: 10px;
+    margin: 10px;
+    padding: auto 10px auto 10px;
+    width: 94%;
     background-color: #cfcfcf;
     border-radius: @border-radius-normal;
     font-size: 12pt;
     line-height: 40px;
+    border: none;
+}
+.held {
+    transform: rotate(-5deg)
+}
+.indicator {
+    margin: 10px;
+    padding: 10px;
+    min-height: 80px;
+    background-color: #555;
 }

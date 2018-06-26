@@ -8,6 +8,13 @@
     <link rel="stylesheet" href="{% static 'scrumptious/css/main.css' %}">
 
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
+    <script src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
+    <script src="http://code.jquery.com/ui/1.8.21/jquery-ui.min.js"></script>
+    
+    {% load static %}
+    <script src="{% static 'scrumptious/js/touch-punch.js' %}"></script>
+    
     <title>Scrumptious | Board</title>
 </head>
 <body>
@@ -19,42 +26,73 @@
     </div>
     <div class="board-container">
         <!-- Board content -->
+        {% for list in lists %}
+            <div class="list">
+                <div class="list-header">{{ list.title }}</div>
+                <ul id="sortable" class="connectedList">
+                    {% for task in list %}
+                    <li class="task">{{ task.title }}</li>
+                    {% endfor %}
+                </ul>
+                <button class="task-add">+ Add a new task...</button>
+            </div>
+        {% endfor %}
+
         <div class="list">
             <div class="list-header">To Do</div>
-            <ul>
-                <li draggable="true" class="task">Task 1</li>
-                <li draggable="true" class="task">Task 2</li>
-                <li draggable="true" class="task">Task 3</li>
-                <li class="task-add">+ Add a new task...</li>
+            <ul id="sortable" class="connectedList">
+                <li class="task">Item 1</li>
+                <li class="task">Item 2</li>
+                <li class="task">Item 3</li>
+                <li class="task">Item 4</li>
+                <li class="task">Item 5</li>
             </ul>
+            <button class="task-add">+ Add a new task...</button>
+        </div>
+        
+        <div class="list">
+            <div class="list-header">In Progress</div>
+            <ul id="sortable" class="connectedList">
+                <li class="task">Item 1</li>
+                <li class="task">Item 2</li>
+                <li class="task">Item 3</li>
+                <li class="task">Item 4</li>
+                <li class="task">Item 5</li>
+                <li class="task">Item 6</li>
+                <li class="task">Item 7</li>
+            </ul>
+            <button class="task-add">+ Add a new task...</button>
         </div>
 
         <div class="list">
-            <div class="list-header">In Progress</div>
-            <ul id="parent">
-                <li draggable="true" class="task parent">Task 1</li>
-                <li draggable="true" class="task parent">Task 2</li>
-                <li draggable="true" class="task parent">Task 3</li>
-                <li draggable="true" class="task parent">Task 4</li>
-                <li draggable="true" class="task parent">Task 5</li>
-                <li class="task-add">+ Add a new task...</li>
+            <div class="list-header">Testing</div>
+            <ul id="sortable" class="connectedList">
+                <li class="task">Item 1</li>
+                <li class="task">Item 2</li>
+                <li class="task">Item 3</li>
+                <li class="task">Item 4</li>
+                <li class="task">Item 5</li>
             </ul>
+            <button class="task-add">+ Add a new task...</button>
         </div>
-
+        
         <div class="list">
-            <div class="list-header">In Progress</div>
-            <ul>
-                <li draggable="true" class="task">Task 1</li>
-                <li draggable="true" class="task">Task 2</li>
-                <li draggable="true" class="task">Task 3</li>
-                <li draggable="true" class="task">Task 4</li>
-                <li draggable="true" class="task">Task 5</li>
-                <li class="task-add">+ Add a new task...</li>
+            <div class="list-header">Completed</div>
+            <ul id="sortable" class="connectedList">
+                <li class="task">Item 1</li>
+                <li class="task">Item 2</li>
+                <li class="task">Item 3</li>
+                <li class="task">Item 4</li>
             </ul>
+            <button class="task-add">+ Add a new task...</button>
         </div>
-
     </div>
-    {% load static %}
-    <script src="{% static 'scrumptious/js/board.js' %}"></script>
+
+    <script>$("#sortable",".list").sortable({
+        connectWith: ".connectedList",
+        receive: function(event, ui) {
+        }
+    });</script>
+    
 </body>
 </html>

@@ -283,7 +283,7 @@ body {
   vertical-align: top;
   margin: 20px;
   padding-bottom: 10px;
-  width: 360px;
+  width: 320px;
   min-height: 80px;
   text-align: left;
   background-color: #fafafa;
@@ -317,9 +317,20 @@ body {
 }
 .task-add {
   margin: 10px;
-  padding-left: 10px;
+  padding: auto 10px auto 10px;
+  width: 94%;
   background-color: #cfcfcf;
   border-radius: 4px;
   font-size: 12pt;
   line-height: 40px;
+  border: none;
+}
+.held {
+  transform: rotate(-5deg);
+}
+.indicator {
+  margin: 10px;
+  padding: 10px;
+  min-height: 80px;
+  background-color: #555;
 }
