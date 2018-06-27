@@ -23,6 +23,16 @@
             <div class="col-3 sm-display-none"></div>
             <div class="content content-light col-6 col-12-sm align-center">
                 <h1 class="align-center">Create a new account</h1>
+                <!-- flash messages -->
+                {% if messages %}
+                    {% for message in messages %}
+                        {% if message.tags == "registration error" %}
+                            <p class="error">
+                                {{ message }}
+                            </p>
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
                 <form action="/register_user" method="post">
                     {% csrf_token %}
                     <table class="table">

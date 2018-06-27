@@ -14,7 +14,12 @@
     <!-- Navigation bar -->
     <div class="row nav">
         <div class="container">
-            <a href="/"><h2>SCRUMPTIOUS</h2></a>
+            <div class="col-6">
+                <a href="/"><h2>SCRUMPTIOUS</h2></a>
+            </div>
+            <div class="col-6 align-right">
+                <a href="/logout">Logout</a>
+            </div>
         </div>
     </div>
     <div class="container">
@@ -31,9 +36,20 @@
                 <!-- Personal Boards -->
                 <div class="row">
                     <h1>Projects</h1>
-                    <h2>Personal Boards</h2>
+                    <h2>Boards</h2>
                 </div>
                 <div class="row">
+                    {% for board in boards %}
+                    <div class="col-3 col-6-sm projects-board-container">
+                        <a href="/board/{{ board.id }}" class="projects-board">{{ board.name }}</a>
+                    </div>
+                    {% endfor %}
+                    <div class="col-3 col-6-sm projects-board-container">
+                        <a href="/create_board" class="projects-board-add">+</a>
+                    </div>
+                </div>
+                
+                <!-- <div class="row">
                     <div class="col-3 col-6-sm projects-board-container">
                         <a href="/board/1" class="projects-board">Board 1</a>
                     </div>
@@ -49,10 +65,10 @@
                     <div class="col-3 col-6-sm projects-board-container">
                         <a href="#" class="projects-board-add">+</a>
                     </div>
-                </div>
+                </div> -->
 
                 <!-- Team boards -->
-                <div class="row">
+                <!-- <div class="row">
                     <p></p>
                     <h2>Team Boards</h2>
                 </div>
@@ -63,7 +79,7 @@
                     <div class="col-3 col-6-sm projects-board-container">
                         <div class="projects-board-add">+</div>
                     </div>
-                </div>
+                </div> -->
             </div>
             <div class="col-2 sm-display-none"></div>
         </div>

@@ -20,25 +20,60 @@
 <body>
     <!-- Navigation bar -->
     <div class="row nav">
-        <div class="col-12">
+        <div class="col-4 col-6-sm">
             <a href="/"><h2>SCRUMPTIOUS</h2></a>
+        </div>
+        <div class="col-4 sm-display-none"></div>
+        <div class="col-4 col-6-sm align-right">
+            <p>
+                <!-- <a href="/add_list/{{ board.id }}">+</a> -->
+                <a href="#">Notifications</a>
+                <a href="#">Profile Icon</a>
+            </p>
         </div>
     </div>
     <div class="board-container">
+
         <!-- Board content -->
         {% for list in lists %}
             <div class="list">
-                <div class="list-header">{{ list.title }}</div>
+                <div class="list-header">{{ list.name }}</div>
                 <ul id="sortable" class="connectedList">
-                    {% for task in list %}
-                    <li class="task">{{ task.title }}</li>
+                    {% for task in list.list_tasks.all %}
+                        <li class="task">{{task.name}}</li>
                     {% endfor %}
                 </ul>
+                <div class="task-form">
+                    <form action="/add_task" method="post">
+                        {% csrf_token %}
+                        <input type="hidden" name="boardID" value="{{ board.id }}">
+                        <input type="hidden" name="listID" value="{{ list.id }}">
+                        <p>Name:</p>
+                        <input type="text" name="name" id="" autocomplete="off">
+                        <p>Description:</p>
+                        <input type="text" name="desc" id="" autocomplete="off">
+                        <input type="submit" class="btn btn-primary" value="Add task">
+                    </form>
+                    <button class="cancel-task-add">Cancel</button>
+                </div>
                 <button class="task-add">+ Add a new task...</button>
             </div>
         {% endfor %}
 
-        <div class="list">
+        <div class="add-list-container">
+            <div class="list-form">
+                <form action="/add_list" method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="boardID" value="{{ board.id }}">
+                    <p>Name:</p>
+                    <input type="text" name="name" id="" autocomplete="off">
+                    <input class="add-list" type="submit" value="Create list">
+                </form>
+                <button class="cancel-add-list">Cancel</button>
+            </div>
+            <button class="add-list">+ Add a new list...</button>
+        </div>
+        <!-- <div class="list">
             <div class="list-header">To Do</div>
             <ul id="sortable" class="connectedList">
                 <li class="task">Item 1</li>
@@ -85,14 +120,51 @@
                 <li class="task">Item 4</li>
             </ul>
             <button class="task-add">+ Add a new task...</button>
-        </div>
+        </div> -->
     </div>
 
-    <script>$("#sortable",".list").sortable({
-        connectWith: ".connectedList",
-        receive: function(event, ui) {
-        }
-    });</script>
+    <script>
+        $(document).ready(function(){
+
+            $("#sortable",".list").sortable({
+                connectWith: ".connectedList",
+                receive: function(event, ui) {
+                    //called when moving between lists
+
+                    //Update task list_id
+                    console.log("Event triggered!")
+                },
+                update: function(event, ui) {
+                    //called when moving items within list
+                    
+                    //Update database list positions
+                    console.log("List updated")
+                }
+            });
+            
+            //Toggle list-add form
+            $('.add-list').click(function(){
+                $(this).closest('.add-list-container').children('.list-form').css("display","block");
+                $(this).css("display","none");
+            });
+            
+            $('.cancel-add-list').click(function() {
+                $(this).closest('.add-list-container').children('.list-form').css("display","none");
+                $(this).closest('.add-list-container').children('.add-list').css("display","block");
+            });
+            
+            //Toggle task-add form
+            $('.task-add').click(function(){
+                $(this).closest('.list').children('.task-form').css("display","block");
+                $(this).css("display","none");
+            });
+            
+            $('.cancel-task-add').click(function() {
+                $(this).closest('.list').children('.task-form').css("display","none");
+                $(this).closest('.list').children('.task-add').css("display","block");
+            });
+        });
+    </script>
     
 </body>
 </html>
