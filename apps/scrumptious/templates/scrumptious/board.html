@@ -32,47 +32,64 @@
             </p>
         </div>
     </div>
-    <div class="board-container">
+    <div class="board-container scrolling-wrapper">
 
         <!-- Board content -->
-        {% for list in lists %}
-            <div class="list">
-                <div class="list-header">{{ list.name }}</div>
-                <ul id="sortable" class="connectedList" data-list="{{ list.id }}">
-                    {% for task in list.list_tasks.all|dictsort:"order" %}
-                        <li class="task" data-index="{{ task.id }}" data-order="{{ task.order }}" >{{ task.order }} {{task.name}} </li>
-                    {% endfor %}
-                </ul>
-                <div class="task-form">
-                    <form action="/add_task" method="post">
-                        {% csrf_token %}
-                        <input type="hidden" name="boardID" value="{{ board.id }}">
-                        <input type="hidden" name="listID" value="{{ list.id }}">
-                        <p>Name:</p>
-                        <input type="text" name="name" id="" autocomplete="off">
-                        <p>Description:</p>
-                        <input type="text" name="desc" id="" autocomplete="off">
-                        <input type="submit" class="confirm-task-add" value="Add task">
-                    </form>
-                    <button class="cancel-task-add">Cancel</button>
-                </div>
-                <button class="task-add">+ Add a new task...</button>
-            </div>
-        {% endfor %}
+        <div id="sortable" class="list-container">
+            <ul >
+                <li>
 
-        <div class="add-list-container">
-            <div class="list-form">
-                <form action="/add_list" method="post">
-                    {% csrf_token %}
-                    <input type="hidden" name="boardID" value="{{ board.id }}">
-                    <p>Name:</p>
-                    <input type="text" name="name" id="" autocomplete="off">
-                    <input class="add-list" type="submit" value="Create list">
-                </form>
-                <button class="cancel-add-list">Cancel</button>
-            </div>
-            <button class="add-list">+ Add a new list...</button>
+                    {% for list in lists %}
+                        <div id="sortable" class="list">
+                            <div class="list-header">{{ list.name }}</div>
+                            <ul id="sortable" class="connectedList" data-list="{{ list.id }}">
+                                {% for task in list.list_tasks.all|dictsort:"order" %}
+                                    <li class="task" data-index="{{ task.id }}" data-order="{{ task.order }}" >
+                                        <div class="row">
+                                            <div class="col-8"><p>{{task.name}}</p></div>
+                                            <div class="col-4"><span class="edit-link">edit</span></div>
+                                        </div>
+                                        
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                            <div class="task-form">
+                                <form action="/add_task" method="post">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="boardID" value="{{ board.id }}">
+                                    <input type="hidden" name="listID" value="{{ list.id }}">
+                                    <p>Name:</p>
+                                    <input type="text" name="name" id="" autocomplete="off">
+                                    <p>Description:</p>
+                                    <input type="text" name="desc" id="" autocomplete="off">
+                                    <input type="submit" class="confirm-task-add" value="Add task">
+                                </form>
+                                <button class="cancel-task-add">Cancel</button>
+                            </div>
+                            <button class="task-add">+ Add a new task...</button>
+                        </div>
+                    {% endfor %}
+            
+                    <div class="add-list-container">
+                        <div class="list-form">
+                            <form action="/add_list" method="post">
+                                {% csrf_token %}
+                                <input type="hidden" name="boardID" value="{{ board.id }}">
+                                <p>Name:</p>
+                                <input type="text" name="name" id="" autocomplete="off">
+                                <input class="add-list" type="submit" value="Create list">
+                            </form>
+                            <button class="cancel-add-list">Cancel</button>
+                        </div>
+                        <button class="add-list">+ Add a new list...</button>
+                    </div>
+
+                    
+                    
+                </li>
+            </ul>
         </div>
+        
         <!-- <div class="list">
             <div class="list-header">To Do</div>
             <ul id="sortable" class="connectedList">
@@ -86,19 +103,49 @@
         </div>
         -->
     </div>
+    <div class="edit-task-modal">
+        <div class="edit-task-modal-content">
+            <span class="edit-task-close-btn">X</span>
+            <h2>Edit Task</h2>
+            <form action="" method="post">
+                <p>Name:</p>
+                <input type="text" name="name" id="" autocomplete="off">
+                <p>Description:</p>
+                <textarea name="" id="" rows="6"></textarea>
+                <input type="submit" class="btn btn-primary" value="Update task">
+            </form>
+            <h2>Comments</h2>
+            <form action="" method="post">
+                <input type="hidden" name="userID" value="{{ request.session.userID }}">
+                <textarea name="comment_content" id="" rows="4"></textarea>
+                <input type="submit" class="btn btn-primary" value="Submit">
+            </form>
+        </div>
+    </div>
 
     <script>
         $(document).ready(function(){
 
+            //Sortable lists
+            $("list-container").sortable({
+                update: function(event, ui) {
+
+                }
+            });
+            
+            //Sortable Tasks between lists
             $("#sortable",".list").sortable({
                 connectWith: ".connectedList",
+                helper: ".task",
+                placeholder: "indicator",
+                delay: 150,
                 receive: function(event, ui) {
                     //called when moving between lists
 
                     $(this).children('li').each(function(index) {
-                        if ($(this).attr("data-order") != index) {
+                        // if ($(this).attr("data-order") != index) {
                             $(this).attr("data-order", index+1).addClass("updated")
-                        }
+                        // }
                     });
 
                     saveNewOrder();
@@ -106,9 +153,9 @@
                 },
                 update: function(event, ui) {
                     $(this).children('li').each(function(index) {
-                        if ($(this).attr("data-order") != index) {
+                        // if ($(this).attr("data-order") != index) {
                             $(this).attr("data-order", index+1).addClass("updated")
-                        }
+                        // }
                     });
 
                     saveNewOrder();
@@ -136,6 +183,12 @@
             $('.cancel-task-add').click(function() {
                 $(this).closest('.list').children('.task-form').css("display","none");
                 $(this).closest('.list').children('.task-add').css("display","block");
+            });
+
+            //Modal toggle
+            $('.edit-task-close-btn').click(function() {
+                $('edit-task-modal').css("display","none");
+                console.log('closing modal')
             });
         });
 

@@ -94,7 +94,7 @@ def logout(request):
 ###### Board routes ######
 def createBoard(request):
     user        = User.objects.get(id=request.session["userID"])
-    newBoard    = Board.objects.create(name="Board 1",desc="")
+    newBoard    = Board.objects.create(name=request.POST["name"],desc="")
     newBoard.board_users.add(user)
     return redirect("/projects")
 
@@ -114,7 +114,7 @@ def addTask(request):
         name        = request.POST["name"],
         desc        = request.POST["desc"],
         list_id     = listID,
-        order       = listCount
+        order       = listCount+1
     )
     newTask.users.add(user)
 

@@ -38,6 +38,11 @@
 h2 {
   font-size: 16pt;
 }
+input[type=text] {
+  padding-left: 10px;
+  border: 2px solid #c7c7c7;
+  border-radius: 4px;
+}
 .container {
   margin: 0 auto;
   max-width: 960px;
@@ -249,13 +254,19 @@ input {
   height: 100px;
   border-radius: 4px;
   color: white;
-  font-size: 12pt;
+  font-size: 16pt;
   vertical-align: top;
   text-overflow: ellipsis;
   transition: background-color 0.33s ease;
+  text-decoration: none;
+  font-weight: bold;
 }
 .projects-board:hover {
   background-color: #4db6ac;
+}
+.projects-board .project-add-cancel {
+  font-size: 16pt;
+  background-color: #673ab7;
 }
 .projects-board-add {
   display: inline-block;
@@ -273,6 +284,31 @@ input {
 }
 .projects-board-add:hover {
   background-color: #bbbbbb;
+}
+.project-form {
+  display: none;
+  padding: 0;
+  margin: 0;
+  vertical-align: top;
+}
+.project-form .board-name-input {
+  margin-top: 0;
+  width: 100%;
+}
+.project-form .btn {
+  display: inline-block;
+  margin: 10px 0;
+  box-shadow: none;
+}
+.project-form .btn-primary {
+  width: 95%;
+}
+.project-form .btn-primary {
+  display: inline;
+}
+.project-form .project-add-cancel {
+  display: inline-block;
+  padding: 10px;
 }
 html {
   height: 100%;
@@ -320,6 +356,10 @@ body {
 }
 .list p {
   margin: 0;
+}
+.list .edit-link {
+  float: right;
+  font-size: 12pt;
 }
 .list-header {
   padding: 10px;
@@ -375,7 +415,7 @@ body {
 .task {
   margin: 10px 0;
   padding: 10px;
-  min-height: 80px;
+  min-height: 60px;
   background-color: #cfcfcf;
   border-radius: 4px;
 }
@@ -426,8 +466,85 @@ body {
   transform: rotate(-5deg);
 }
 .indicator {
-  margin: 10px;
+  margin: 10px 0;
+  width: 100%;
+  min-height: 60px;
+  background-color: #616d6e;
+}
+.edit-task-modal {
+  position: fixed;
+  z-index: 10;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+.edit-task-modal-content {
+  position: fixed;
+  z-index: 20;
+  top: 80px;
+  left: 50%;
+  margin-left: -240px;
+  padding: 20px;
+  width: 480px;
+  background-color: #fafafa;
+}
+@media only screen and (max-width: 600px) {
+  .edit-task-modal-content {
+    position: relative;
+    top: 50px;
+    left: 0;
+    width: 95%;
+  }
+}
+.edit-task-modal-content .edit-task-close-btn {
+  width: 40px;
+  height: 40px;
+  float: right;
+  text-align: center;
+  font-size: 12pt;
+  line-height: 40px;
+  background-color: #673ab7;
+  color: white;
+  border-radius: 4px;
+  box-shadow: 0px 2px 4px #222;
+}
+.edit-task-modal-content input[type=submit] {
+  display: block;
+  margin: 10px 0;
+  width: 25%;
+  border-radius: 4px;
+}
+@media only screen and (max-width: 600px) {
+  .edit-task-modal-content input[type=submit] {
+    width: 100%;
+  }
+}
+.edit-task-modal-content textarea {
+  margin: 10px 0;
   padding: 10px;
-  min-height: 80px;
-  background-color: #555;
+  width: 100%;
+  resize: none;
+  border: 2px solid #c7c7c7;
+  border-radius: 4px;
+}
+.scrolling-wrapper {
+  scroll-snap-points-x: repeat(100vw);
+  scroll-snap-type: mandatory;
+}
+@media only screen and (max-width: 600px) {
+  .scrolling-wrapper {
+    overflow-x: scroll;
+    overflow-y: hidden;
+    height: 100vh;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+@media only screen and (max-width: 600px) {
+  .scrolling-wrapper .list {
+    margin: 10px 10px 0 0;
+    width: 100vw;
+  }
 }
