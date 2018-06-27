@@ -14,4 +14,5 @@ urlpatterns = [
     url(r'^create_board$', views.createBoard),
     url(r'^add_list$', views.addList),
     url(r'^add_task$', views.addTask),
+    url(r'^updateList$', views.updateList),
 ]

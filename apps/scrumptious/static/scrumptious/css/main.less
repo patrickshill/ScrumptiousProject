@@ -10,7 +10,7 @@
 @phone-size: ~"only screen and (max-width: 600px)";
 
 //Global variables
-@header-color: #333;
+@color-header: #333;
 @content-color-light: #fafafa;
 
 //Colors
@@ -51,11 +51,11 @@
 }
 
 .btn-primary {
-    background-color: #009688;
+    background-color: @color-primary;
     color: white;
 }
 .btn-secondary {
-    background-color: #673ab7;
+    background-color: @color-secondary;
     color: white;
 }
 
@@ -208,7 +208,7 @@ p {
     z-index: 1;
     width: 100%;
     color: white;
-    background-color: @header-color;
+    background-color: @color-header;
     box-shadow: @box-shadow;
     a {
         color: white;
@@ -281,7 +281,7 @@ input {
 .projects-board {
     display: inline-block;
     padding: 10px;
-    background-color:#009688;
+    background-color:@color-primary;
     width: 100%;
     height: 100px;
     border-radius: @border-radius-normal;
@@ -336,7 +336,8 @@ body {
 .list {
     display: inline-block;
     vertical-align: top;
-    margin: 20px;
+    margin: 20px 0 20px 20px;
+    padding: 10px;
     padding-bottom: 10px;
     width: 320px;
     min-height: 80px;
@@ -353,6 +354,9 @@ body {
         margin: 20px auto 20px auto;
         width: 90%;
     }
+    p {
+        margin: 0;
+    }
 }
 .list-header {
     padding: 10px;
@@ -365,12 +369,15 @@ body {
 .add-list-container {
     display: inline-block;
     vertical-align: top;
-    margin: 20px;
+    margin: 20px 0 20px 20px;
     width: 320px;
     text-align: left;
     @media @phone-size {
         margin: 20px auto 20px auto;
         width: 90%;
+    }
+    p {
+        margin: 5px;
     }
 }
 .add-list {
@@ -402,7 +409,7 @@ body {
 }
 
 .task {
-    margin: 10px;
+    margin: 10px 0;
     padding: 10px;
     min-height: 80px;
     background-color: #cfcfcf;
@@ -410,24 +417,46 @@ body {
 }
 .task-add {
     display: block;
-    margin: 10px;
+    margin: 10px 0;
     padding: auto 10px auto 10px;
-    width: 94%;
-    background-color: #cfcfcf;
+    width: 100%;
+    background-color: @color-primary;
+    color: white;
     border-radius: @border-radius-normal;
     font-size: 12pt;
     line-height: 40px;
     border: none;
+    box-shadow: @box-shadow;
 }
 .task-form {
     display: none;
     margin: 10px;
 }
+.confirm-task-add {
+    display: block;
+    margin: 10px 0;
+    padding: auto 10px auto 10px;
+    width: 100%;
+    background-color: @color-primary;
+    color: white;
+    border-radius: @border-radius-normal;
+    font-size: 12pt;
+    line-height: 40px;
+    border: none;
+    box-shadow: @box-shadow;
+}
 .cancel-task-add {
-    &:extend(.btn);
-    &:extend(.btn-secondary);
-    margin-top: 10px;
-    padding: 10px auto;
+    display: block;
+    margin: 10px 0;
+    padding: auto 10px auto 10px;
+    width: 50%;
+    background-color: @color-secondary;
+    color: white;
+    border-radius: @border-radius-normal;
+    font-size: 12pt;
+    line-height: 40px;
+    border: none;
+    box-shadow: @box-shadow;
 }
 .held {
     transform: rotate(-5deg)

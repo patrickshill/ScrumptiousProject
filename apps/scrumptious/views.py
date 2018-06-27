@@ -1,5 +1,8 @@
 from django.shortcuts import render, redirect, HttpResponse
 from django.contrib import messages
+from django.core import serializers
+from django.views.decorators.csrf import csrf_exempt
+import json
 from .models import *
 
 #Page views
@@ -102,10 +105,31 @@ def addList(request):
     return redirect("/board/"+boardID)
 
 def addTask(request):
-    user    = User.objects.get(id=request.session["userID"])
-    boardID = request.POST["boardID"]
-    listID  = List.objects.get(id=request.POST["listID"])
-    newTask = Task.objects.create(name=request.POST["name"],desc=request.POST["desc"],list_id=listID)
+    user        = User.objects.get(id=request.session["userID"])
+    boardID     = request.POST["boardID"]
+    listID      = List.objects.get(id=request.POST["listID"])
+    listCount   = len(List.objects.get(id=request.POST["listID"]).list_tasks.all())
+
+    newTask = Task.objects.create(
+        name        = request.POST["name"],
+        desc        = request.POST["desc"],
+        list_id     = listID,
+        order       = listCount
+    )
     newTask.users.add(user)
 
     return redirect("/board/"+boardID)
+
+def updateList(request):
+    #load json sting
+    for key in request.GET:
+        data = json.loads(key)
+    print(data)
+    #update order for each item in list
+    for index in data['data']:
+        list_id = List.objects.get(id=index[2])
+        task = Task.objects.get(id=index[0])
+        task.order      = index[1]
+        task.list_id    = list_id
+        task.save()
+    return HttpResponse("successfully updated order")

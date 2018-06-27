@@ -104,6 +104,7 @@ class Task(models.Model):
     name            = models.CharField(max_length=255)
     desc            = models.TextField()
     list_id         = models.ForeignKey(List,on_delete=models.CASCADE,related_name="list_tasks")
+    order           = models.IntegerField(default=0)
     users           = models.ManyToManyField(User,related_name="user_tasks")
     created_at      = models.DateTimeField(auto_now_add=True)
     updated_at      = models.DateTimeField(auto_now=True)

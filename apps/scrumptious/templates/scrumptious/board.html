@@ -38,9 +38,9 @@
         {% for list in lists %}
             <div class="list">
                 <div class="list-header">{{ list.name }}</div>
-                <ul id="sortable" class="connectedList">
-                    {% for task in list.list_tasks.all %}
-                        <li class="task">{{task.name}}</li>
+                <ul id="sortable" class="connectedList" data-list="{{ list.id }}">
+                    {% for task in list.list_tasks.all|dictsort:"order" %}
+                        <li class="task" data-index="{{ task.id }}" data-order="{{ task.order }}" >{{ task.order }} {{task.name}} </li>
                     {% endfor %}
                 </ul>
                 <div class="task-form">
@@ -52,7 +52,7 @@
                         <input type="text" name="name" id="" autocomplete="off">
                         <p>Description:</p>
                         <input type="text" name="desc" id="" autocomplete="off">
-                        <input type="submit" class="btn btn-primary" value="Add task">
+                        <input type="submit" class="confirm-task-add" value="Add task">
                     </form>
                     <button class="cancel-task-add">Cancel</button>
                 </div>
@@ -84,43 +84,7 @@
             </ul>
             <button class="task-add">+ Add a new task...</button>
         </div>
-        
-        <div class="list">
-            <div class="list-header">In Progress</div>
-            <ul id="sortable" class="connectedList">
-                <li class="task">Item 1</li>
-                <li class="task">Item 2</li>
-                <li class="task">Item 3</li>
-                <li class="task">Item 4</li>
-                <li class="task">Item 5</li>
-                <li class="task">Item 6</li>
-                <li class="task">Item 7</li>
-            </ul>
-            <button class="task-add">+ Add a new task...</button>
-        </div>
-
-        <div class="list">
-            <div class="list-header">Testing</div>
-            <ul id="sortable" class="connectedList">
-                <li class="task">Item 1</li>
-                <li class="task">Item 2</li>
-                <li class="task">Item 3</li>
-                <li class="task">Item 4</li>
-                <li class="task">Item 5</li>
-            </ul>
-            <button class="task-add">+ Add a new task...</button>
-        </div>
-        
-        <div class="list">
-            <div class="list-header">Completed</div>
-            <ul id="sortable" class="connectedList">
-                <li class="task">Item 1</li>
-                <li class="task">Item 2</li>
-                <li class="task">Item 3</li>
-                <li class="task">Item 4</li>
-            </ul>
-            <button class="task-add">+ Add a new task...</button>
-        </div> -->
+        -->
     </div>
 
     <script>
@@ -131,13 +95,23 @@
                 receive: function(event, ui) {
                     //called when moving between lists
 
-                    //Update task list_id
+                    $(this).children('li').each(function(index) {
+                        if ($(this).attr("data-order") != index) {
+                            $(this).attr("data-order", index+1).addClass("updated")
+                        }
+                    });
+
+                    saveNewOrder();
                     console.log("Event triggered!")
                 },
                 update: function(event, ui) {
-                    //called when moving items within list
-                    
-                    //Update database list positions
+                    $(this).children('li').each(function(index) {
+                        if ($(this).attr("data-order") != index) {
+                            $(this).attr("data-order", index+1).addClass("updated")
+                        }
+                    });
+
+                    saveNewOrder();
                     console.log("List updated")
                 }
             });
@@ -164,6 +138,27 @@
                 $(this).closest('.list').children('.task-add').css("display","block");
             });
         });
+
+        function saveNewOrder() {
+            let order = [];
+            $(".updated").each(function() {
+                order.push([$(this).attr('data-index'), $(this).attr('data-order'), $(this).parent('ul').attr('data-list')]);
+                $(this).removeClass('updated');
+            });
+            console.log(order);
+            $.ajax({
+                url: "/updateList",
+                method: "POST",
+                dataType: 'json',
+                data: JSON.stringify({
+                    update: 1,
+                    data: order
+                }), success: function(response) {
+                    console.log(response);
+                }
+            });
+        }
+        
     </script>
     
 </body>

@@ -14,8 +14,7 @@
 .align-right {
   text-align: right;
 }
-.btn,
-.cancel-task-add {
+.btn {
   margin: auto 4px;
   padding: 5px 10px;
   font-size: 12pt;
@@ -32,8 +31,7 @@
   background-color: #009688;
   color: white;
 }
-.btn-secondary,
-.cancel-task-add {
+.btn-secondary {
   background-color: #673ab7;
   color: white;
 }
@@ -299,7 +297,8 @@ body {
 .list {
   display: inline-block;
   vertical-align: top;
-  margin: 20px;
+  margin: 20px 0 20px 20px;
+  padding: 10px;
   padding-bottom: 10px;
   width: 320px;
   min-height: 80px;
@@ -319,6 +318,9 @@ body {
     width: 90%;
   }
 }
+.list p {
+  margin: 0;
+}
 .list-header {
   padding: 10px;
   background-color: #333;
@@ -330,7 +332,7 @@ body {
 .add-list-container {
   display: inline-block;
   vertical-align: top;
-  margin: 20px;
+  margin: 20px 0 20px 20px;
   width: 320px;
   text-align: left;
 }
@@ -339,6 +341,9 @@ body {
     margin: 20px auto 20px auto;
     width: 90%;
   }
+}
+.add-list-container p {
+  margin: 5px;
 }
 .add-list {
   margin: 0;
@@ -368,7 +373,7 @@ body {
   border: none;
 }
 .task {
-  margin: 10px;
+  margin: 10px 0;
   padding: 10px;
   min-height: 80px;
   background-color: #cfcfcf;
@@ -376,22 +381,46 @@ body {
 }
 .task-add {
   display: block;
-  margin: 10px;
+  margin: 10px 0;
   padding: auto 10px auto 10px;
-  width: 94%;
-  background-color: #cfcfcf;
+  width: 100%;
+  background-color: #009688;
+  color: white;
   border-radius: 4px;
   font-size: 12pt;
   line-height: 40px;
   border: none;
+  box-shadow: 0px 2px 4px #222;
 }
 .task-form {
   display: none;
   margin: 10px;
 }
+.confirm-task-add {
+  display: block;
+  margin: 10px 0;
+  padding: auto 10px auto 10px;
+  width: 100%;
+  background-color: #009688;
+  color: white;
+  border-radius: 4px;
+  font-size: 12pt;
+  line-height: 40px;
+  border: none;
+  box-shadow: 0px 2px 4px #222;
+}
 .cancel-task-add {
-  margin-top: 10px;
-  padding: 10px auto;
+  display: block;
+  margin: 10px 0;
+  padding: auto 10px auto 10px;
+  width: 50%;
+  background-color: #673ab7;
+  color: white;
+  border-radius: 4px;
+  font-size: 12pt;
+  line-height: 40px;
+  border: none;
+  box-shadow: 0px 2px 4px #222;
 }
 .held {
   transform: rotate(-5deg);
