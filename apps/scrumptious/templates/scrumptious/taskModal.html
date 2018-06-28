@@ -1,0 +1,35 @@
+<div class="edit-task-modal">
+    <div class="edit-task-modal-content">
+        <div class="row">
+            <div class="col-10">
+                <h2>{{ task.name }}</h2>
+            </div>
+            <div class="col-2">
+                <span class="edit-task-close-btn">X</span>
+            </div>
+        </div>
+        <form action="/update_task" method="post">
+            {% csrf_token %}
+            <input type="hidden" name="boardID" value="{{ board.id }}">
+            <input type="hidden" name="taskID" value="{{ task.id }}" id="taskID">
+            <p>Name:</p>
+            <input type="text" name="name" id="" value="{{ task.name }}" autocomplete="off">
+            <p>Description:</p>
+            <p>{{ task.desc }}</p>
+            <textarea name="desc" id="" rows="6">{{ task.desc }}</textarea>
+            <input type="submit" class="btn btn-primary" value="Update task">
+        </form>
+        <h3>Add a comment</h3>
+        <form action="/add_comment" method="post" id="post-comment-form">
+            {% csrf_token %}
+            <input type="hidden" name="taskID" value="{{ task.id }}">
+            <input type="hidden" name="userID" value="{{ request.session.userID }}">
+            <textarea name="comment_content" id="" rows="4"></textarea>
+            <input type="submit" class="btn btn-primary" value="Post" id="post-comment">
+            <!-- <button class="btn btn-primary">Post</button> -->
+        </form>
+        {% for comment in task.task_comments.all %}
+            <p>{{ comment.content }}</p>
+        {% endfor %}
+    </div>
+</div>

@@ -120,6 +120,31 @@ def addTask(request):
 
     return redirect("/board/"+boardID)
 
+def taskEditModal(request):
+    print("GET: ",request.GET)
+    # for key in request.GET:
+    #     data = json.loads(key)
+    # print(data)
+    context = {
+        "task"  : Task.objects.get(id=request.GET["task"]),
+        "board" : Board.objects.get(id=request.GET["board"])
+    }
+    return render(request,"scrumptious/taskModal.html",context)
+    # return HttpResponse("hello")
+
+def updateTask(request):
+    print(request.method)
+    print(request.POST["boardID"])
+    boardID = request.POST["boardID"]
+    task    = Task.objects.get(id=request.POST["taskID"])
+
+    #update task
+    task.name = request.POST["name"]
+    task.desc = request.POST["desc"]
+    task.save()
+
+    return redirect("/board/"+boardID)
+
 def updateList(request):
     #load json sting
     for key in request.GET:
@@ -133,3 +158,8 @@ def updateList(request):
         task.list_id    = list_id
         task.save()
     return HttpResponse("successfully updated order")
+
+def addComment(request):
+    print(request.POST)
+
+    return render(request,"scrumptious/taskModal.html")

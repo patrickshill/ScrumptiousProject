@@ -47,7 +47,7 @@
                                     <li class="task" data-index="{{ task.id }}" data-order="{{ task.order }}" >
                                         <div class="row">
                                             <div class="col-8"><p>{{task.name}}</p></div>
-                                            <div class="col-4"><span class="edit-link">edit</span></div>
+                                            <div class="col-4"><span class="edit-task" task-id="{{ task.id }}" board-id="{{ board.id }}">edit</span></div>
                                         </div>
                                         
                                     </li>
@@ -103,25 +103,32 @@
         </div>
         -->
     </div>
-    <div class="edit-task-modal">
+    {% block content %}
+    {% endblock %}
+    <div id="modal-container"></div>
+
+    <!-- <div class="edit-task-modal">
         <div class="edit-task-modal-content">
             <span class="edit-task-close-btn">X</span>
             <h2>Edit Task</h2>
-            <form action="" method="post">
+            <form action="/update_task" method="post">
+                {% csrf_token %}
+                <input type="hidden" name="boardID" value="{{ board.id }}">
+                <input type="hidden" name="taskID" value="" id="taskID">
                 <p>Name:</p>
                 <input type="text" name="name" id="" autocomplete="off">
                 <p>Description:</p>
-                <textarea name="" id="" rows="6"></textarea>
+                <textarea name="desc" id="" rows="6"></textarea>
                 <input type="submit" class="btn btn-primary" value="Update task">
             </form>
             <h2>Comments</h2>
             <form action="" method="post">
                 <input type="hidden" name="userID" value="{{ request.session.userID }}">
                 <textarea name="comment_content" id="" rows="4"></textarea>
-                <input type="submit" class="btn btn-primary" value="Submit">
+                <input type="submit" class="btn btn-primary" value="Post">
             </form>
         </div>
-    </div>
+    </div> -->
 
     <script>
         $(document).ready(function(){
@@ -186,12 +193,59 @@
             });
 
             //Modal toggle
-            $('.edit-task-close-btn').click(function() {
-                $('edit-task-modal').css("display","none");
-                console.log('closing modal')
+            $('.edit-task').click(function() {
+                
+                //Get task id
+                id      = $(this).attr('task-id');
+                boardID = $(this).attr('board-id')
+
+                //Set hidden input id to task id
+                // $('#taskID').val(id);
+                getTaskForModal()
+
+            });
+            
+            //Hide modal on click X or click off modal-content
+            $(document).on('click', function(e) {
+                console.log("clicked")
+                target = $(e.target)
+                console.log(target[0]["className"])
+                // $('.edit-task-modal').click(function(e){
+                //     console.log($(e.target))
+                //     $(this).closest('.edit-task-modal').css("display","none");
+                // });
+
+                if(target[0]["className"] == 'edit-task-close-btn' || target[0]["className"] == 'edit-task-modal') {
+                    $('.edit-task-close-btn').closest('.edit-task-modal').css("display","none");
+                }
+            })
+            
+
+            //Post comment without refresh..
+            $('#post-comment-form').submit(function(e){
+                e.preventDefault()
+            })
+            $("#post-comment").click(function(e) {
+                console.log("post sent")
+                e.preventDefault();
+                e.stopPropagation();
+                $.ajax({
+                    type: "POST",
+                    url: "/add_comment",
+                    data: $("#post-comment-form").serialize(), // serializes the form's elements.
+                    success: function(response){
+                        console.log("got response from server")
+                        $('#modal-container').html(response);
+                        
+                        //Show Modal
+                        $('.edit-task-modal').css("display","block");
+                    }
+                    });
+
+                return false // avoid to execute the actual submit of the form.
             });
         });
-
+        
         function saveNewOrder() {
             let order = [];
             $(".updated").each(function() {
@@ -209,6 +263,25 @@
                 }), success: function(response) {
                     console.log(response);
                 }
+            });
+        }
+
+        function getTaskForModal() {
+            $.ajax({
+                url: "/getModalData",
+                method: "GET",
+                dataType: 'text',
+                data: {
+                    task: id,
+                    board: boardID
+                },
+                    success: function(response) {
+                        console.log("got template back");
+                        $('#modal-container').html(response);
+
+                        //Show Modal
+                        $('.edit-task-modal').css("display","block");
+                    }
             });
         }
         

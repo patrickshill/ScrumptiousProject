@@ -15,4 +15,7 @@ urlpatterns = [
     url(r'^add_list$', views.addList),
     url(r'^add_task$', views.addTask),
     url(r'^updateList$', views.updateList),
+    url(r'^update_task$', views.updateTask),
+    url(r'^getModalData$', views.taskEditModal),
+    url(r'^add_comment$', views.addComment),
 ]
