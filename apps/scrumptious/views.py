@@ -24,6 +24,13 @@ def register(request):
 def login(request):
     return render(request, "scrumptious/login.html")
 
+def userProfile(request):
+    user = User.objects.get(id=request.session["userID"])
+    context = {
+        "user" : user
+    }
+    return render(request, "scrumptious/userProfile.html",context)
+
 def projects(request):
     user    = User.objects.get(id=request.session["userID"])
     boards  = user.user_boards.all()
@@ -160,6 +167,40 @@ def updateList(request):
     return HttpResponse("successfully updated order")
 
 def addComment(request):
-    print(request.POST)
+    print("METHOD:",request.POST)
+    user    = User.objects.get(id=request.session["userID"])
+    task    = Task.objects.get(id=request.POST["taskID"])
+    board   = Board.objects.get(id=request.POST["boardID"])
+    comment = request.POST["comment_content"]
+    
+    # Add comment
+    c = Comment.objects.create(content=comment,task=task,user=user)
+    print(c)
 
-    return render(request,"scrumptious/taskModal.html")
+    
+    context = {
+        "task"      : task,
+        "board"     : board,
+        "comments"  : task.task_comments.all(),
+    }
+
+    return render(request,"scrumptious/taskModal.html",context)
+
+def deleteComment(request):
+    print("METHOD:",request.GET)
+
+    task    = Task.objects.get(id=request.GET["task"])
+    board   = Board.objects.get(id=request.GET["board"])
+    comment = Comment.objects.get(id=request.GET["comment"])
+    
+    # Add comment
+    comment.delete()
+
+    
+    context = {
+        "task"      : task,
+        "board"     : board,
+        "comments"  : task.task_comments.all(),
+    }
+
+    return render(request,"scrumptious/taskModal.html",context)

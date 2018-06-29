@@ -14,7 +14,10 @@
     <!-- Navigation bar -->
     <div class="row nav">
         <div class="container">
-            <a href="/"><h2>SCRUMPTIOUS</h2></a>
+            <a href="/">
+                <img src="{% static 'scrumptious/img/asset1.svg' %}" alt="" id="nav-logo">
+                <img class="sm-display-none"src="{% static 'scrumptious/img/asset2.svg' %}" alt="" id="nav-logo-text">
+            </a>
         </div>
     </div>
     <div class="container">
@@ -23,7 +26,7 @@
             <div class="col-3 sm-display-none"></div>
             <div class="content content-light col-6 col-12-sm align-center">
                 <h1 class="align-center">Login</h1>
-                <form action="/login_user" method="post">
+                <form action="/login_user" method="post" id="login-form">
                     {% csrf_token %}
                     <table class="table">
                         <tr>
@@ -39,7 +42,7 @@
                             <td><input type="password" name="password" id=""></td>
                         </tr>
                     </table>
-                    <br />
+                    <p><a href="/register" id="register-link">Don't have an account? Register here</a></p>
                     <input class="btn btn-secondary" type="submit" value="Login">
                 </form>
             </div>

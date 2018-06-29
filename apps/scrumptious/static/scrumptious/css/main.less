@@ -17,6 +17,7 @@
 @color-primary: #009688;
 @color-secondary: #673ab7;
 @color-input-border: rgb(199, 199, 199);
+@color-warm: #ffd54f;
 
 @border-radius-normal: 4px;
 @border-radius-extreme: 8px;
@@ -26,6 +27,15 @@
 @box-shadow-hover: 0px 4px 4px #222;
 
 //Global styles
+::-webkit-scrollbar {
+    width: 8px;
+    background: transparent; 
+}
+/* optional: show position indicator in red */
+::-webkit-scrollbar-thumb {
+    background: #666;
+    border-radius: @border-radius-normal;
+}
 .align-center {
     text-align: center;
 }
@@ -34,6 +44,12 @@
 }
 .align-right {
     text-align: right;
+}
+.float-left {
+  float: left;
+}
+.float-right {
+  float: right;
 }
 
 .btn {
@@ -66,6 +82,12 @@ h2 {
 
 //Forms
 input[type=text] {
+    padding-left: 10px;
+    border: 2px solid @color-input-border;
+    border-radius: @border-radius-normal;
+}
+
+input[type=password] {
     padding-left: 10px;
     border: 2px solid @color-input-border;
     border-radius: @border-radius-normal;
@@ -197,11 +219,40 @@ p {
 .content {
     padding: 20px;
     z-index: 0;
+    height: 100%;
     font-size: 10pt;
 }
 
 .content-light {
     background-color: @content-color-light;
+}
+
+.content-dark-primary {
+    background-color: @color-primary;
+    color: white;
+}
+
+.content-dark-secondary {
+    background-color: @color-secondary;
+    color: white;
+}
+
+.content-warm {
+    background-color: @color-warm;
+}
+
+//Splash page
+#polygon1 {
+    position: absolute;
+    z-index: 5;
+    top: 0;;
+    left: -480px;
+}
+#content-section-1 {
+    z-index: 6;
+    h1 {
+        color: white;
+    }
 }
 
 
@@ -210,11 +261,54 @@ p {
     text-align: left;
     color: red;
     font-size: 12pt;
+    padding: 10px 20px;
 }
 .nav {
-    padding: 10px 20px;
-    z-index: 1;
+    line-height:60px;
+    z-index: 10;
     width: 100%;
+    height: 60px;
+    color: white;
+    background-color: @color-header;
+    box-shadow: @box-shadow;
+    a {
+        margin: auto 10px;
+        color: white;
+        text-decoration: none;
+        font-size: 14pt;
+        height: 100%;
+    }
+    p {
+        margin: 0 auto;
+        font-size: 14pt;
+        height: 100%;
+    }
+    form {
+        display: inline;
+    }
+    .btn {
+        margin: 0;
+        height: 40px;
+    }
+}
+.nav-logo {
+}
+.nav-links {
+}
+#nav-logo {
+    margin-top: 10px;
+    height: 40px;
+}
+#nav-logo-text {
+    margin-left: 10px;
+    top: -6px;
+    height: 24px;
+}
+#board-nav {
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    width: 100vw;
     color: white;
     background-color: @color-header;
     box-shadow: @box-shadow;
@@ -238,7 +332,7 @@ p {
     flex-grow: 1;
     margin: 35px 10px auto auto;
     height: 100%;
-    font-size: 12pt;
+    font-size: 14pt;
     @media @phone-size {
         background-color: #222;
         color: white;
@@ -262,7 +356,6 @@ p {
     li a {
         text-decoration: none;
         color: black;
-        margin-bottom: 10px;
         @media @phone-size {
             color: white;
         }
@@ -281,6 +374,35 @@ input {
     border-radius: @border-radius-normal;
     border: 2px solid #F0F0F0;
 }
+
+//LOGIN PAGE
+#login-form {
+    input[type=submit]{
+        margin: 10px auto;
+    }
+}
+#register-link {
+    margin: 10px auto;
+    color: @color-secondary;
+    &:hover {
+        color: @color-primary;
+    }
+}
+
+//Registration page
+#registration-form {
+    input[type=submit]{
+        margin: 10px auto;
+    }
+}
+#login-link {
+    margin: 10px auto;
+    color: @color-secondary;
+    &:hover {
+        color: @color-primary;
+    }
+}
+
 
 //Projects
 .projects-board-container {
@@ -355,19 +477,14 @@ input {
 
 
 //Board styles
-html {
-}
-body {
-    height: 100vh;
-    overflow-x: scroll;
-    white-space:nowrap;
-}
 .board-container {
     position:absolute;
     top: 0;
     left: 0;
-    padding-top: 45px;
-    height: 100vh;
+    padding-top: 70px;
+    width: 100vw;
+    min-height: 100vh;
+    background-color: @content-color-light;
     @media @phone-size {
         text-align: center;
     }
@@ -456,11 +573,11 @@ body {
     margin: 10px 0;
     padding: 10px;
     min-height: 60px;
-    background-color: #cfcfcf;
+    background-color: #e0e0e0;
     border-radius: @border-radius-normal;
     .edit-task {
         font-size: 12pt;
-        float: right;
+        // float: right;
     }
 }
 .task-add {
@@ -529,8 +646,10 @@ body {
 }
 .edit-task-modal-content {
     position: fixed;
+    overflow-y: scroll;
+    max-height: 80vh;
     z-index: 20;
-    top: 80px;
+    top: 40px;
     left: 50%;
     margin-left: -240px;
     padding: 20px;
@@ -564,6 +683,15 @@ body {
             width: 100%;
         }
     }
+    input[type=button]{
+        display: block;
+        margin: 10px 0;
+        width: 25%;
+        border-radius: @border-radius-normal;
+        @media @phone-size {
+            width: 100%;
+        }
+    }
     textarea {
         margin: 10px 0;
         padding: 10px;
@@ -572,13 +700,26 @@ body {
         border: 2px solid @color-input-border;
         border-radius: @border-radius-normal;
     }
+    h3 {
+        margin: 10px auto;
+    }
+    h4 {
+        margin: 10px auto;
+    }
+    .delete-comment {
+        text-decoration: underline;
+        color: @color-secondary;
+        &:hover{
+            color: @color-primary;
+        }
+    }
 }
 
 //Mobile scrolling
 .scrolling-wrapper {
-    white-space: nowrap;
-    overflow-x: scroll;
+    // overflow-x: scroll;
     @media @phone-size {
+        white-space: nowrap;
         overflow-x: scroll;
         overflow-y: hidden;
         height: 100vh;
@@ -591,6 +732,45 @@ body {
         @media @phone-size {
             margin: 10px 10px 0 0;
             width: 100vw;
+        }
+    }
+}
+
+
+//User profile
+#user-details {
+    table {
+        margin-bottom: 10px;
+    }
+    td {
+        padding:10px;
+        font-size: 14pt;
+        border-bottom: 2px solid @color-input-border;
+    }
+    a {
+        margin-left: 10px;
+        font-size: 12pt;
+        color: @color-secondary;
+        text-decoration: none;
+        &:hover {
+            color: @color-primary;
+        }
+    }
+}
+#user-boards {
+    h2 {
+        margin: 15px auto;
+    }
+    ul {
+        list-style-type: none;
+    }
+    a {
+        margin: 10px auto;
+        color: black;
+        text-decoration: none;
+        font-size: 14pt;
+        &:hover {
+            color: @color-primary;
         }
     }
 }

@@ -14,10 +14,13 @@
     <!-- Navigation bar -->
     <div class="row nav">
         <div class="container">
-            <div class="col-6">
-                <h2>SCRUMPTIOUS</h2>
+            <div class="col-6 nav-logo">
+                <a href="/">
+                    <img src="{% static 'scrumptious/img/asset1.svg' %}" alt="" id="nav-logo">
+                    <img class="sm-display-none"src="{% static 'scrumptious/img/asset2.svg' %}" alt="" id="nav-logo-text">
+                </a>
             </div>
-            <div class="col-6 align-right">
+            <div class="col-6 nav-links align-right">
                 <a href="/login"><button class="btn btn-primary">Login</button></a>
                 <a href="/register"><button class="btn btn-secondary">Register</button></a>
             </div>
@@ -25,12 +28,34 @@
     </div>
     <div class="container">
         <!-- Content Section Main -->
+        <!-- SVG overlays -->
+        <svg width="960" height="600" class="sm-display-none" id="polygon1">
+            <polygon points="0,0, 960,0 720,280 0,420" style="fill:#009688;"/>
+        </svg>
         <div class="row">
-            <div class="content content-light col-6">
+            <div class="content content-light col-6" style="min-height: 400px">
+                    <h1>Stuff</h1>
             </div>
-            <div class="content content-light col-6">
+            <div class="content content-light col-6" style="min-height: 400px">
+            </div>
+        </div>
+        <div class="row">
+            <div class="content content-warm col-12" id="#content-section-1">
+                <h1>Stuff</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="content content-dark-primary col-12">
+                <h1>More stuff</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="content content-dark-secondary col-12">
+                <h1>More stuff</h1>
             </div>
         </div>
     </div>
+
+    
 </body>
 </html>

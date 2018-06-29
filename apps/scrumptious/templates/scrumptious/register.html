@@ -14,7 +14,10 @@
     <!-- Navigation bar -->
     <div class="row nav">
         <div class="container">
-            <a href="/"><h2>SCRUMPTIOUS</h2></a>
+            <a href="/">
+                <img src="{% static 'scrumptious/img/asset1.svg' %}" alt="" id="nav-logo">
+                <img class="sm-display-none"src="{% static 'scrumptious/img/asset2.svg' %}" alt="" id="nav-logo-text">
+            </a>
         </div>
     </div>
     <div class="container">
@@ -33,7 +36,7 @@
                         {% endif %}
                     {% endfor %}
                 {% endif %}
-                <form action="/register_user" method="post">
+                <form action="/register_user" method="post" id="registration-form">
                     {% csrf_token %}
                     <table class="table">
                         <tr>
@@ -67,7 +70,7 @@
                             <td><input type="password" name="password_confirm" id=""></td>
                         </tr>
                     </table>
-                    <br />
+                    <p class="align-left"><a href="/login" id="login-link">Already have an account? Login here</a></p>
                     <input class="btn btn-secondary" type="submit" value="Create new account">
                 </form>
             </div>

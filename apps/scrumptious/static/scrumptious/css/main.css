@@ -5,6 +5,15 @@
   font-family: 'Roboto', sans-serif;
   position: relative;
 }
+::-webkit-scrollbar {
+  width: 8px;
+  background: transparent;
+}
+/* optional: show position indicator in red */
+::-webkit-scrollbar-thumb {
+  background: #666;
+  border-radius: 4px;
+}
 .align-center {
   text-align: center;
 }
@@ -13,6 +22,12 @@
 }
 .align-right {
   text-align: right;
+}
+.float-left {
+  float: left;
+}
+.float-right {
+  float: right;
 }
 .btn {
   margin: auto 4px;
@@ -39,6 +54,11 @@ h2 {
   font-size: 16pt;
 }
 input[type=text] {
+  padding-left: 10px;
+  border: 2px solid #c7c7c7;
+  border-radius: 4px;
+}
+input[type=password] {
   padding-left: 10px;
   border: 2px solid #c7c7c7;
   border-radius: 4px;
@@ -159,25 +179,52 @@ p {
 .content {
   padding: 20px;
   z-index: 0;
+  height: 100%;
   font-size: 10pt;
 }
 .content-light {
   background-color: #fafafa;
 }
+.content-dark-primary {
+  background-color: #009688;
+  color: white;
+}
+.content-dark-secondary {
+  background-color: #673ab7;
+  color: white;
+}
+.content-warm {
+  background-color: #ffd54f;
+}
+#polygon1 {
+  position: absolute;
+  z-index: 5;
+  top: 0;
+  left: -480px;
+}
+#content-section-1 {
+  z-index: 6;
+}
+#content-section-1 h1 {
+  color: white;
+}
 .error {
   text-align: left;
   color: red;
   font-size: 12pt;
+  padding: 10px 20px;
 }
 .nav {
-  padding: 10px 20px;
-  z-index: 1;
+  line-height: 60px;
+  z-index: 10;
   width: 100%;
+  height: 60px;
   color: white;
   background-color: #333;
   box-shadow: 0px 2px 4px #222;
 }
 .nav a {
+  margin: auto 10px;
   color: white;
   text-decoration: none;
   font-size: 14pt;
@@ -191,11 +238,47 @@ p {
 .nav form {
   display: inline;
 }
+.nav .btn {
+  margin: 0;
+  height: 40px;
+}
+#nav-logo {
+  margin-top: 10px;
+  height: 40px;
+}
+#nav-logo-text {
+  margin-left: 10px;
+  top: -6px;
+  height: 24px;
+}
+#board-nav {
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  width: 100vw;
+  color: white;
+  background-color: #333;
+  box-shadow: 0px 2px 4px #222;
+}
+#board-nav a {
+  color: white;
+  text-decoration: none;
+  font-size: 14pt;
+  height: 100%;
+}
+#board-nav p {
+  margin: 0 auto;
+  font-size: 14pt;
+  height: 100%;
+}
+#board-nav form {
+  display: inline;
+}
 .side-nav {
   flex-grow: 1;
   margin: 35px 10px auto auto;
   height: 100%;
-  font-size: 12pt;
+  font-size: 14pt;
 }
 @media only screen and (max-width: 600px) {
   .side-nav {
@@ -224,7 +307,6 @@ p {
 .side-nav li a {
   text-decoration: none;
   color: black;
-  margin-bottom: 10px;
 }
 @media only screen and (max-width: 600px) {
   .side-nav li a {
@@ -242,6 +324,26 @@ input {
   font-size: 12pt;
   border-radius: 4px;
   border: 2px solid #F0F0F0;
+}
+#login-form input[type=submit] {
+  margin: 10px auto;
+}
+#register-link {
+  margin: 10px auto;
+  color: #673ab7;
+}
+#register-link:hover {
+  color: #009688;
+}
+#registration-form input[type=submit] {
+  margin: 10px auto;
+}
+#login-link {
+  margin: 10px auto;
+  color: #673ab7;
+}
+#login-link:hover {
+  color: #009688;
 }
 .projects-board-container {
   padding: 5px 5px 0 0;
@@ -310,17 +412,14 @@ input {
   display: inline-block;
   padding: 10px;
 }
-body {
-  height: 100vh;
-  overflow-x: scroll;
-  white-space: nowrap;
-}
 .board-container {
   position: absolute;
   top: 0;
   left: 0;
-  padding-top: 45px;
-  height: 100vh;
+  padding-top: 70px;
+  width: 100vw;
+  min-height: 100vh;
+  background-color: #fafafa;
 }
 @media only screen and (max-width: 600px) {
   .board-container {
@@ -413,12 +512,11 @@ body {
   margin: 10px 0;
   padding: 10px;
   min-height: 60px;
-  background-color: #cfcfcf;
+  background-color: #e0e0e0;
   border-radius: 4px;
 }
 .task .edit-task {
   font-size: 12pt;
-  float: right;
 }
 .task-add {
   display: block;
@@ -484,8 +582,10 @@ body {
 }
 .edit-task-modal-content {
   position: fixed;
+  overflow-y: scroll;
+  max-height: 80vh;
   z-index: 20;
-  top: 80px;
+  top: 40px;
   left: 50%;
   margin-left: -240px;
   padding: 20px;
@@ -524,6 +624,17 @@ body {
     width: 100%;
   }
 }
+.edit-task-modal-content input[type=button] {
+  display: block;
+  margin: 10px 0;
+  width: 25%;
+  border-radius: 4px;
+}
+@media only screen and (max-width: 600px) {
+  .edit-task-modal-content input[type=button] {
+    width: 100%;
+  }
+}
 .edit-task-modal-content textarea {
   margin: 10px 0;
   padding: 10px;
@@ -532,9 +643,20 @@ body {
   border: 2px solid #c7c7c7;
   border-radius: 4px;
 }
+.edit-task-modal-content h3 {
+  margin: 10px auto;
+}
+.edit-task-modal-content h4 {
+  margin: 10px auto;
+}
+.edit-task-modal-content .delete-comment {
+  text-decoration: underline;
+  color: #673ab7;
+}
+.edit-task-modal-content .delete-comment:hover {
+  color: #009688;
+}
 .scrolling-wrapper {
-  white-space: nowrap;
-  overflow-x: scroll;
   scroll-snap-points-x: repeat(100vw);
   scroll-snap-type: mandatory;
 }
@@ -552,4 +674,36 @@ body {
     margin: 10px 10px 0 0;
     width: 100vw;
   }
+}
+#user-details table {
+  margin-bottom: 10px;
+}
+#user-details td {
+  padding: 10px;
+  font-size: 14pt;
+  border-bottom: 2px solid #c7c7c7;
+}
+#user-details a {
+  margin-left: 10px;
+  font-size: 12pt;
+  color: #673ab7;
+  text-decoration: none;
+}
+#user-details a:hover {
+  color: #009688;
+}
+#user-boards h2 {
+  margin: 15px auto;
+}
+#user-boards ul {
+  list-style-type: none;
+}
+#user-boards a {
+  margin: 10px auto;
+  color: black;
+  text-decoration: none;
+  font-size: 14pt;
+}
+#user-boards a:hover {
+  color: #009688;
 }

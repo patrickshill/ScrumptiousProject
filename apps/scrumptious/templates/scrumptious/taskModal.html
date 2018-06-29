@@ -7,29 +7,35 @@
             <div class="col-2">
                 <span class="edit-task-close-btn">X</span>
             </div>
+            <p>{{ task.desc }}</p>
         </div>
         <form action="/update_task" method="post">
             {% csrf_token %}
             <input type="hidden" name="boardID" value="{{ board.id }}">
             <input type="hidden" name="taskID" value="{{ task.id }}" id="taskID">
-            <p>Name:</p>
+            <h4>Name:</h4>
             <input type="text" name="name" id="" value="{{ task.name }}" autocomplete="off">
-            <p>Description:</p>
-            <p>{{ task.desc }}</p>
+            <h4>Description:</h4>
             <textarea name="desc" id="" rows="6">{{ task.desc }}</textarea>
             <input type="submit" class="btn btn-primary" value="Update task">
         </form>
+        <h3>Comments</h3>
+        {% for comment in task.task_comments.all %}
+            <h4>{{ comment.user.first_name }}:</h4>
+            <p>{{ comment.content }}</p>
+            {% if request.session.userID == comment.user.id %}
+            <span class="delete-comment" task-id="{{ task.id }}" board-id="{{ board.id }}" comment-id="{{ comment.id }}">Delete</span>
+            {% endif %}
+        {% endfor %}
         <h3>Add a comment</h3>
         <form action="/add_comment" method="post" id="post-comment-form">
             {% csrf_token %}
+            <input type="hidden" name="boardID" value="{{ board.id }}">
             <input type="hidden" name="taskID" value="{{ task.id }}">
             <input type="hidden" name="userID" value="{{ request.session.userID }}">
             <textarea name="comment_content" id="" rows="4"></textarea>
-            <input type="submit" class="btn btn-primary" value="Post" id="post-comment">
+            <input type="button" class="btn btn-primary" value="Post" id="post-comment">
             <!-- <button class="btn btn-primary">Post</button> -->
         </form>
-        {% for comment in task.task_comments.all %}
-            <p>{{ comment.content }}</p>
-        {% endfor %}
     </div>
 </div>

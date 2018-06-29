@@ -10,6 +10,7 @@ urlpatterns = [
     url(r'^login_user$', views.loginUser),
     url(r'^logout$', views.logout),
     url(r'^projects$', views.projects),
+    url(r'^profile$', views.userProfile),
     url(r'^board/(?P<boardID>\d+)$', views.board),
     url(r'^create_board$', views.createBoard),
     url(r'^add_list$', views.addList),
@@ -18,4 +19,5 @@ urlpatterns = [
     url(r'^update_task$', views.updateTask),
     url(r'^getModalData$', views.taskEditModal),
     url(r'^add_comment$', views.addComment),
+    url(r'^delete_comment$', views.deleteComment),
 ]

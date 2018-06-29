@@ -19,25 +19,25 @@
 </head>
 <body>
     <!-- Navigation bar -->
-    <div class="row nav">
-        <div class="col-4 col-6-sm">
-            <a href="/"><h2>SCRUMPTIOUS</h2></a>
+    <div class="row nav" id="board-nav">
+        <div class="col-6 col-6-sm">
+            <a href="/">
+                <img src="{% static 'scrumptious/img/asset1.svg' %}" alt="" id="nav-logo">
+                <img class="sm-display-none"src="{% static 'scrumptious/img/asset2.svg' %}" alt="" id="nav-logo-text">
+            </a>
         </div>
-        <div class="col-4 sm-display-none"></div>
-        <div class="col-4 col-6-sm align-right">
-            <p>
+        <div class="col-6 col-6-sm align-right">
                 <!-- <a href="/add_list/{{ board.id }}">+</a> -->
-                <a href="#">Notifications</a>
-                <a href="#">Profile Icon</a>
-            </p>
+                <a href="#">Notifications</a> | 
+                <a href="/profile">Profile</a>
         </div>
     </div>
     <div class="board-container scrolling-wrapper">
 
         <!-- Board content -->
-        <div id="sortable" class="list-container">
+        <!-- <div id="sortable" class="list-container">
             <ul >
-                <li>
+                <li> -->
 
                     {% for list in lists %}
                         <div id="sortable" class="list">
@@ -47,9 +47,15 @@
                                     <li class="task" data-index="{{ task.id }}" data-order="{{ task.order }}" >
                                         <div class="row">
                                             <div class="col-8"><p>{{task.name}}</p></div>
-                                            <div class="col-4"><span class="edit-task" task-id="{{ task.id }}" board-id="{{ board.id }}">edit</span></div>
+                                            <div class="col-4"><span class="edit-task float-right" task-id="{{ task.id }}" board-id="{{ board.id }}">edit</span></div>
                                         </div>
-                                        
+                                        <div class="row">
+                                            <div class="col-6">
+                                                {% if task.task_comments.count > 0 %}
+                                                    <span class="edit-task align-left" task-id="{{ task.id }}" board-id="{{ board.id }}">{{ task.task_comments.count }} Comments</span>
+                                                {% endif %}
+                                            </div>
+                                        </div>
                                     </li>
                                 {% endfor %}
                             </ul>
@@ -86,59 +92,21 @@
 
                     
                     
-                </li>
+                <!-- </li>
             </ul>
-        </div>
-        
-        <!-- <div class="list">
-            <div class="list-header">To Do</div>
-            <ul id="sortable" class="connectedList">
-                <li class="task">Item 1</li>
-                <li class="task">Item 2</li>
-                <li class="task">Item 3</li>
-                <li class="task">Item 4</li>
-                <li class="task">Item 5</li>
-            </ul>
-            <button class="task-add">+ Add a new task...</button>
-        </div>
-        -->
+        </div> -->
     </div>
-    {% block content %}
-    {% endblock %}
     <div id="modal-container"></div>
-
-    <!-- <div class="edit-task-modal">
-        <div class="edit-task-modal-content">
-            <span class="edit-task-close-btn">X</span>
-            <h2>Edit Task</h2>
-            <form action="/update_task" method="post">
-                {% csrf_token %}
-                <input type="hidden" name="boardID" value="{{ board.id }}">
-                <input type="hidden" name="taskID" value="" id="taskID">
-                <p>Name:</p>
-                <input type="text" name="name" id="" autocomplete="off">
-                <p>Description:</p>
-                <textarea name="desc" id="" rows="6"></textarea>
-                <input type="submit" class="btn btn-primary" value="Update task">
-            </form>
-            <h2>Comments</h2>
-            <form action="" method="post">
-                <input type="hidden" name="userID" value="{{ request.session.userID }}">
-                <textarea name="comment_content" id="" rows="4"></textarea>
-                <input type="submit" class="btn btn-primary" value="Post">
-            </form>
-        </div>
-    </div> -->
 
     <script>
         $(document).ready(function(){
 
             //Sortable lists
-            $("list-container").sortable({
-                update: function(event, ui) {
+            // $("list-container").sortable({
+            //     update: function(event, ui) {
 
-                }
-            });
+            //     }
+            // });
             
             //Sortable Tasks between lists
             $("#sortable",".list").sortable({
@@ -207,9 +175,8 @@
             
             //Hide modal on click X or click off modal-content
             $(document).on('click', function(e) {
-                console.log("clicked")
+                // console.log("clicked")
                 target = $(e.target)
-                console.log(target[0]["className"])
                 // $('.edit-task-modal').click(function(e){
                 //     console.log($(e.target))
                 //     $(this).closest('.edit-task-modal').css("display","none");
@@ -218,32 +185,65 @@
                 if(target[0]["className"] == 'edit-task-close-btn' || target[0]["className"] == 'edit-task-modal') {
                     $('.edit-task-close-btn').closest('.edit-task-modal').css("display","none");
                 }
-            })
-            
 
-            //Post comment without refresh..
-            $('#post-comment-form').submit(function(e){
-                e.preventDefault()
-            })
-            $("#post-comment").click(function(e) {
-                console.log("post sent")
-                e.preventDefault();
-                e.stopPropagation();
-                $.ajax({
-                    type: "POST",
-                    url: "/add_comment",
-                    data: $("#post-comment-form").serialize(), // serializes the form's elements.
-                    success: function(response){
-                        console.log("got response from server")
-                        $('#modal-container').html(response);
-                        
-                        //Show Modal
-                        $('.edit-task-modal').css("display","block");
-                    }
-                    });
+                //Add comment
+                if(target[0]["id"] == 'post-comment') {
 
-                return false // avoid to execute the actual submit of the form.
+                    e.preventDefault();
+                    $.ajax({
+                        type: "POST",
+                        url: "/add_comment",
+                        data: $("#post-comment-form").serialize(), // serializes the form's elements.
+                        success: function(response){
+                            console.log("got response from server")
+                            $('#modal-container').html(response);
+                            
+                            //Show Modal
+                            $('.edit-task-modal').css("display","block");
+
+                            }
+                        });
+                    // avoid to execute the actual submit of the form.
+                    console.log("got here")
+                    return false;
+                }
+
+                
+                //Delete comment
+                if(target[0]["className"] == 'delete-comment') {
+
+                    console.log("deleting comment")
+                    let boardID     = $(".delete-comment").attr("board-id")
+                    let taskID      = $(".delete-comment").attr("task-id")
+                    let commentID   = $(".delete-comment").attr("comment-id")
+
+                    $.ajax({
+                        type:"GET",
+                        url:"/delete_comment",
+                        dataType: 'text',
+                        data: {
+                            board: boardID,
+                            task: taskID,
+                            comment: commentID
+                        },
+                        success: function(response) {
+                            console.log("comment was deleted")
+
+                            // add modal template to modal container
+                            $('#modal-container').html(response);
+                            
+                            //Show Modal
+                            $('.edit-task-modal').css("display","block");
+
+                            }
+                        });
+
+                    // avoid to execute the actual submit of the form.
+                    e.preventDefault();
+                    return false;
+                }
             });
+            
         });
         
         function saveNewOrder() {

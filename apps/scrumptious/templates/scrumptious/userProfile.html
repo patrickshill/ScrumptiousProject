@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'scrumptious/css/main.css' %}">
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <title>Scrumptious | profile</title>
+</head>
+<body>
+    <!-- Navigation bar -->
+    <div class="row nav">
+        <div class="container">
+            <div class="col-6 nav-logo">
+                <a href="/">
+                    <img src="{% static 'scrumptious/img/asset1.svg' %}" alt="" id="nav-logo">
+                    <img class="sm-display-none"src="{% static 'scrumptious/img/asset2.svg' %}" alt="" id="nav-logo-text">
+                </a>
+            </div>
+            <div class="col-6 nav-links align-right">
+                <a href="/projects">Projects</a>
+                <a href="/logout">Logout</a>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <!-- Content Section Main -->
+        <div class="row">
+            <div class="col-2 sm-display-none"></div>
+            <div class="content content-light col-8 col-12-sm" id="user-details">
+                <h1>User Profile</h1>
+                <table  cellspacing=0>
+                    <tr>
+                        <td>First name:</td>
+                        <td>{{ user.first_name }}</td>
+                    </tr>
+                    <tr>
+                        <td>Last name:</td>
+                        <td>{{ user.last_name }}</td>
+                    </tr>
+                    <tr>
+                        <td>Email</td>
+                        <td>{{ user.email }}</td>
+                    </tr>
+                </table>
+                <a href="#" class="edit-details">Edit user settings</a>
+            </div>
+            <div class="col-2 sm-display-none"></div>
+        </div>
+        
+        <div class="row">
+            <div class="col-2 sm-display-none"></div>
+            <div class="content content-warm col-8 col-12-sm" id="user-boards">
+                <a href="/projects"><h2>My boards</h2></a>
+                <ul>
+                    {% for board in user.user_boards.all %}
+                    <li>
+                        <a href="/board/{{ board.id }}">{{ board.name }}</a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="col-2 sm-display-none"></div>
+        </div>
+        
+    </div>
+</body>
+</html>
