@@ -11,6 +11,7 @@ urlpatterns = [
     url(r'^logout$', views.logout),
     url(r'^projects$', views.projects),
     url(r'^profile$', views.userProfile),
+    url(r'^update_user$', views.updateUser),
     url(r'^board/(?P<boardID>\d+)$', views.board),
     url(r'^create_board$', views.createBoard),
     url(r'^add_list$', views.addList),

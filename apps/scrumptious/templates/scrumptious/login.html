@@ -8,6 +8,9 @@
     <link rel="stylesheet" href="{% static 'scrumptious/css/main.css' %}">
 
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
+    <script src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
+    <script src="http://code.jquery.com/ui/1.8.21/jquery-ui.min.js"></script>
     <title>Scrumptious | Register</title>
 </head>
 <body>
@@ -20,7 +23,7 @@
             </a>
         </div>
     </div>
-    <div class="container">
+    <div class="container" id="login-container">
         <!-- Content Section Main -->
         <div class="row">
             <div class="col-3 sm-display-none"></div>
@@ -49,5 +52,28 @@
             <div class="col-3 sm-display-none"></div>
         </div>
     </div>
+    <script src="{% static 'scrumptious/js/anime.min.js'%}"></script>
+    <script>
+        $(document).ready(function(){
+            $(".btn").hover(
+            function() {
+                anime.remove(this)
+                var cssSelector = anime({
+                    targets: this,
+                    scaleY: 1.2,
+                    duration: 1000,
+                    elasticity: 700
+                })
+            },
+            function() {
+                anime.remove(this)
+                var cssSelector = anime({
+                    targets: this,
+                    scaleY: 1,
+                    duration: 500
+                })
+            });
+        });
+    </script>
 </body>
 </html>

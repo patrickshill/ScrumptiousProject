@@ -8,6 +8,9 @@
     <link rel="stylesheet" href="{% static 'scrumptious/css/main.css' %}">
 
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
+    <script src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
+    <script src="http://code.jquery.com/ui/1.8.21/jquery-ui.min.js"></script>
     <title>Scrumptious | profile</title>
 </head>
 <body>
@@ -26,7 +29,7 @@
             </div>
         </div>
     </div>
-    <div class="container">
+    <div class="container" id="user-profile-container">
         <!-- Content Section Main -->
         <div class="row">
             <div class="col-2 sm-display-none"></div>
@@ -46,10 +49,26 @@
                         <td>{{ user.email }}</td>
                     </tr>
                 </table>
-                <a href="#" class="edit-details">Edit user settings</a>
+                <a href="#" class="edit-details" id="edit-user-link">Edit user settings</a>
+                <div id="edit-user-container">
+                    <h3>Edit account information</h3>
+                    <form action="/update_user" id="edit-user-form" method="POST">
+                        {% csrf_token %}
+                        <input type="hidden" name="userID" value="{{ user.id }}">
+                        <p>First name:</p>
+                        <input type="text" name="first_name" id="" value="{{ user.first_name }}">
+                        <p>Last name:</p>
+                        <input type="text" name="last_name" id="" value="{{ user.last_name }}">
+                        <p>Email:</p>
+                        <input type="text" name="email" id="" value="{{ user.email }}">
+                        <input type="submit" class="btn btn-primary" value="Submit">
+                    </form>
+                    <button id="edit-user-cancel" class="btn btn-secondary">Cancel</button>
+                </div>
             </div>
             <div class="col-2 sm-display-none"></div>
         </div>
+
         
         <div class="row">
             <div class="col-2 sm-display-none"></div>
@@ -67,5 +86,25 @@
         </div>
         
     </div>
+    <script>
+        $(document).ready(function(){
+
+            $("#edit-user-link").click(function() {
+
+                //Toggle form display
+                $("#edit-user-container").css("display","block");
+                $("#edit-user-link").css("display","none");
+
+            });
+            
+            $("#edit-user-cancel").click(function() {
+
+                //Toggle form display
+                $("#edit-user-container").css("display", "none")
+                $("#edit-user-link").css("display", "block")
+            })
+        });
+    
+    </script>
 </body>
 </html>

@@ -8,6 +8,9 @@
     <link rel="stylesheet" href="{% static 'scrumptious/css/main.css' %}">
 
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
+    <script src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
+    <script src="http://code.jquery.com/ui/1.8.21/jquery-ui.min.js"></script>
     <title>Scrumptious</title>
 </head>
 <body>
@@ -26,36 +29,273 @@
             </div>
         </div>
     </div>
-    <div class="container">
+    <div id="splash-container">
         <!-- Content Section Main -->
         <!-- SVG overlays -->
-        <svg width="960" height="600" class="sm-display-none" id="polygon1">
-            <polygon points="0,0, 960,0 720,280 0,420" style="fill:#009688;"/>
-        </svg>
-        <div class="row">
-            <div class="content content-light col-6" style="min-height: 400px">
-                    <h1>Stuff</h1>
-            </div>
-            <div class="content content-light col-6" style="min-height: 400px">
+        <div class="row content-warm">
+            <div class="container" id="splash-image-background">
+                <svg width="960" height="600" class="sm-display-none" id="polygon1">
+                    <polygon points="0,0, 960,0 720,280 0,420" style="fill:#009688;"/>
+                </svg>
+                <div class="content col-6 col-12-sm" id="content-section-1">
+                        <h1 id="header-section-1">
+                            Scrumptious<br>
+                            accomplish more<br>
+                            collaboratively
+                        </h1>
+                        <h3>Scrumptious boards help you<br>
+                            engage with your team, assign<br>
+                            tasks, and organize projects
+                        </h3>
+                    </div>
+                    <div class="col-6 col-12-sm">
+                        <a href="/register"><button class="btn-big" id="get-started">Get Started</button></a>
+                </div>
             </div>
         </div>
-        <div class="row">
-            <div class="content content-warm col-12" id="#content-section-1">
-                <h1>Stuff</h1>
+        <div class="row content-warm">
+            <div class="container" >
+                <div class="content col-12 align-center" id="content-section-2">
+                    <svg width="960" height="700" class="sm-display-none" id="polygon2">
+                        <polygon points="280,0, 960,280 720,700 200,400 80,240" style="fill:#673ab7;"/>
+                    </svg>
+                    <h1 id="header-section-2">
+                    Create product roadmaps on Scrumptious, let<br>
+                    your team focus on building and collaborate<br>
+                    online in real-time
+                    </h1>
+                    <div id="board-screenshot"></div>
+                </div>
             </div>
         </div>
-        <div class="row">
-            <div class="content content-dark-primary col-12">
-                <h1>More stuff</h1>
+        <div class="row content-dark-grey" id="content-section-3">
+            <div class="container" >
+                <div class="content col-12">
+                    <h1>Join Forces</h1>
+                    <h1>Get involved by adding comments, and checklists. Collaborate from start to<br>
+                    finish on multiple projects. Stay on track with Scrumptious</h1>
+                </div>
             </div>
         </div>
-        <div class="row">
-            <div class="content content-dark-secondary col-12">
-                <h1>More stuff</h1>
+        <div class="row content-light" id="content-section-4">
+            <div class="container" >
+                <div class="content col-12">
+                <div id="modal-screenshot"></div>
+                </div>
+            </div>
+        </div>
+        <div class="row content-dark-primary" id="content-section-5">
+            <div class="container " >
+                <div class="content col-8 col-12-sm">
+                    <h1>Communication just got easier</h1>
+                    <h1>Create Boards for person events, projects and more!</h1>
+                    
+                    <a href="/register"><button class="btn-big">Build Your Board</button></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="row content-dark-secondary" id="content-section-6">
+            <div class="container " >
+                <div class="col-6 sm-display-none"></div>
+                <div class="content col-6 col-12-sm">
+                    <h1>Innovation</h1>
+                    <h1>
+                        Work with Scrumptious to learn and give
+                        feedback on new an dupcoming features
+                    </h1>
+                    <input type="text" name="email" id="newsletter-input" autocomplete="off">
+                    <a href="/register"><button class="btn-big-warm float-right">Subscribe</button></a>
+                </div>
             </div>
         </div>
     </div>
 
-    
+    <script src="{% static 'scrumptious/js/anime.min.js'%}"></script>
+    <script>
+        $(document).ready(function(){
+            $(".btn").hover(
+            function() {
+                anime.remove(this)
+                var cssSelector = anime({
+                    targets: this,
+                    scale: 1.1,
+                    duration: 1000,
+                    elasticity: 700
+                })
+            },
+            function() {
+                anime.remove(this)
+                var cssSelector = anime({
+                    targets: this,
+                    scale: 1,
+                    duration: 500
+                })
+            });
+
+            $(".btn-big").hover(
+            function() {
+                anime.remove(this)
+                var cssSelector = anime({
+                    targets: this,
+                    scale: 1.1,
+                    duration: 1000,
+                    elasticity: 700
+                })
+            },
+            function() {
+                anime.remove(this)
+                var cssSelector = anime({
+                    targets: this,
+                    scale: 1,
+                    duration: 500
+                })
+            });
+
+            $(".btn-big-warm").hover(
+            function() {
+                anime.remove(this)
+                var cssSelector = anime({
+                    targets: this,
+                    scale: 1.05,
+                    duration: 1000,
+                    elasticity: 700
+                })
+            },
+            function() {
+                anime.remove(this)
+                var cssSelector = anime({
+                    targets: this,
+                    scale: 1,
+                    duration: 500
+                })
+            });
+
+            $("#newsletter-input").hover(
+            function() {
+                anime.remove(this)
+                var cssSelector = anime({
+                    targets: this,
+                    scaleY: 1.2,
+                    duration: 1000,
+                    elasticity: 700
+                })
+            },
+            function() {
+                anime.remove(this)
+                var cssSelector = anime({
+                    targets: this,
+                    scaleY: 1,
+                    duration: 500
+                })
+            });
+
+            $("#nav-logo").hover(
+            function() {
+                anime.remove(this)
+                var cssSelector = anime({
+                    targets: this,
+                    scale: 1.05,
+                    duration: 1500,
+                    elasticity: 800
+                })
+            },
+            function() {
+                anime.remove(this)
+                var cssSelector = anime({
+                    targets: this,
+                    scale: 1,
+                    duration: 1500,
+                    elasticity: 800
+                })
+            });
+
+            $("#header-section-1").hover(
+            function() {
+                anime.remove("#polygon1")
+                var cssSelector = anime({
+                    targets: "#polygon1",
+                    translateX: 10,
+                    duration: 3000,
+                    elasticity: 800
+                })
+            },
+            function() {
+                anime.remove("#polygon1")
+                var cssSelector = anime({
+                    targets: "#polygon1",
+                    translateX: 0,
+                    duration: 3000,
+                    elasticity: 800
+                })
+            });
+
+            $("#header-section-2").hover(
+            function() {
+                anime.remove("#polygon2")
+                var cssSelector = anime({
+                    targets: "#polygon2",
+                    translateX: -10,
+                    duration: 3000,
+                    elasticity: 800
+                })
+            },
+            function() {
+                anime.remove("#polygon2")
+                var cssSelector = anime({
+                    targets: "#polygon2",
+                    translateX: 0,
+                    duration: 3000,
+                    elasticity: 800
+                })
+            });
+
+            $("#board-screenshot").hover(
+            function() {
+                anime.remove(this)
+                var cssSelector = anime({
+                    targets: this,
+                    translateY: -5,
+                    duration: 2000,
+                    elasticity: 800
+                })
+            },
+            function() {
+                anime.remove(this)
+                var cssSelector = anime({
+                    targets: this,
+                    translateY: 0,
+                    duration: 2000,
+                    elasticity: 800
+                })
+            });
+
+            $("#modal-screenshot").hover(
+            function() {
+                anime.remove(this)
+                var cssSelector = anime({
+                    targets: this,
+                    translateY: -5,
+                    scale: 1.05,
+                    duration: 2000,
+                    elasticity: 700
+                })
+            },
+            function() {
+                anime.remove(this)
+                var cssSelector = anime({
+                    targets: this,
+                    translateY: 0,
+                    scale: 1,
+                    duration: 2000,
+                    elasticity: 700
+                })
+            });
+                
+                
+            // document.querySelector("h1").onclick = cssSelector;
+        })
+        
+    </script>
 </body>
 </html>

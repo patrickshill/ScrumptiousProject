@@ -11,7 +11,7 @@
 }
 /* optional: show position indicator in red */
 ::-webkit-scrollbar-thumb {
-  background: #666;
+  background: #c7c7c7;
   border-radius: 4px;
 }
 .align-center {
@@ -36,11 +36,6 @@
   border-radius: 4px;
   border: none;
   box-shadow: 0px 2px 4px #222;
-}
-.btn:hover {
-  position: relative;
-  top: -2px;
-  box-shadow: 0px 4px 4px #222;
 }
 .btn-primary {
   background-color: #009688;
@@ -182,6 +177,11 @@ p {
   height: 100%;
   font-size: 10pt;
 }
+@media only screen and (max-width: 600px) {
+  .content {
+    padding: 10px;
+  }
+}
 .content-light {
   background-color: #fafafa;
 }
@@ -193,6 +193,10 @@ p {
   background-color: #673ab7;
   color: white;
 }
+.content-dark-grey {
+  background-color: #333;
+  color: white;
+}
 .content-warm {
   background-color: #ffd54f;
 }
@@ -202,11 +206,133 @@ p {
   top: 0;
   left: -480px;
 }
+.btn-big {
+  cursor: pointer;
+  padding: 15px 25px;
+  font-size: 20pt;
+  color: white;
+  background-color: #673ab7;
+  border: none;
+  border-radius: 8px;
+}
+#splash-image-background {
+  background-image: url("../img/splash-photo1.jpeg");
+  background-size: cover;
+  width: 100%;
+}
 #content-section-1 {
+  min-height: 480px;
   z-index: 6;
+  color: white;
+}
+@media only screen and (max-width: 600px) {
+  #content-section-1 {
+    min-height: 260px;
+  }
 }
 #content-section-1 h1 {
+  margin-top: 40px;
   color: white;
+}
+#get-started {
+  top: 180px;
+}
+@media only screen and (max-width: 600px) {
+  #get-started {
+    position: static;
+    margin: 10px auto;
+    display: block;
+    width: 95%;
+  }
+}
+#content-section-2 {
+  min-height: 480px;
+  z-index: 6;
+}
+#content-section-2 h1 {
+  margin-top: 40px;
+}
+#polygon2 {
+  position: absolute;
+  left: 720px;
+  top: -240px;
+}
+#board-screenshot {
+  margin: 0 auto;
+  background-image: url("../img/board-screenshot1.png");
+  background-size: cover;
+  height: 400px;
+  width: 80%;
+}
+@media only screen and (max-width: 600px) {
+  #board-screenshot {
+    display: block;
+    margin: 0;
+    width: 100%;
+    height: 240px;
+    background-size: contain;
+    background-repeat: no-repeat;
+  }
+}
+#content-section-3 {
+  min-height: 220px;
+  text-align: center;
+}
+#content-section-4 {
+  min-height: 480px;
+  background-color: #fafafa;
+}
+@media only screen and (max-width: 600px) {
+  #content-section-4 {
+    min-height: 360px;
+  }
+}
+#modal-screenshot {
+  margin: 0 auto;
+  top: -42px;
+  width: 480px;
+  min-height: 580px;
+  background-image: url("../img/board-screenshot2.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  border: 8px solid #fafafa;
+  border-radius: 8px;
+}
+@media only screen and (max-width: 600px) {
+  #modal-screenshot {
+    background-size: cover;
+    background-position: center;
+    top: 0;
+    width: 100%;
+    min-height: 360px;
+    border: none;
+    border-radius: 0;
+  }
+}
+#content-section-5 .btn-big {
+  margin-top: 30px;
+}
+@media only screen and (max-width: 600px) {
+  #content-section-5 .btn-big {
+    margin: 10px auto;
+    width: 100%;
+  }
+}
+@media only screen and (max-width: 600px) {
+  #content-section-6 .btn-big-warm {
+    margin: 10px auto;
+    width: 100%;
+  }
+}
+.btn-big-warm {
+  cursor: pointer;
+  padding: 15px 25px;
+  font-size: 20pt;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  background-color: #ffd54f;
+  color: black;
 }
 .error {
   text-align: left;
@@ -215,6 +341,9 @@ p {
   padding: 10px 20px;
 }
 .nav {
+  position: fixed;
+  top: 0;
+  left: 0;
   line-height: 60px;
   z-index: 10;
   width: 100%;
@@ -239,6 +368,7 @@ p {
   display: inline;
 }
 .nav .btn {
+  cursor: pointer;
   margin: 0;
   height: 40px;
 }
@@ -273,6 +403,22 @@ p {
 }
 #board-nav form {
   display: inline;
+}
+#splash-container {
+  top: 60px;
+  overflow-x: hidden;
+}
+#login-container {
+  top: 60px;
+}
+#register-container {
+  top: 60px;
+}
+#user-profile-container {
+  top: 60px;
+}
+#projects-container {
+  top: 60px;
 }
 .side-nav {
   flex-grow: 1;
@@ -516,7 +662,12 @@ input {
   border-radius: 4px;
 }
 .task .edit-task {
+  cursor: pointer;
   font-size: 12pt;
+  transition: color 0.5s;
+}
+.task .edit-task:hover {
+  color: #009688;
 }
 .task-add {
   display: block;
@@ -569,6 +720,7 @@ input {
   width: 100%;
   min-height: 60px;
   background-color: #616d6e;
+  border-radius: 4px;
 }
 .edit-task-modal {
   position: fixed;
@@ -706,4 +858,18 @@ input {
 }
 #user-boards a:hover {
   color: #009688;
+}
+#edit-user-container {
+  display: none;
+}
+#edit-user-container h3 {
+  margin: 30px auto 15px auto;
+}
+#edit-user-container input[type=submit] {
+  margin: 15px auto;
+}
+#edit-user-cancel {
+  margin: 10px auto;
+  width: 25%;
+  height: 40px;
 }

@@ -98,6 +98,15 @@ def logout(request):
     request.session.clear()
     return redirect("/")
 
+def updateUser(request):
+    user = User.objects.get(id=request.POST["userID"])
+    user.first_name = request.POST["first_name"]
+    user.last_name = request.POST["last_name"]
+    user.email = request.POST["email"]
+    user.save()
+    
+    return redirect("/profile")
+
 ###### Board routes ######
 def createBoard(request):
     user        = User.objects.get(id=request.session["userID"])

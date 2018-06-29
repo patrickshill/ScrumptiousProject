@@ -12,11 +12,12 @@
 //Global variables
 @color-header: #333;
 @content-color-light: #fafafa;
+@header-height: 60px;
 
 //Colors
 @color-primary: #009688;
 @color-secondary: #673ab7;
-@color-input-border: rgb(199, 199, 199);
+@color-grey-light: rgb(199, 199, 199);
 @color-warm: #ffd54f;
 
 @border-radius-normal: 4px;
@@ -33,7 +34,7 @@
 }
 /* optional: show position indicator in red */
 ::-webkit-scrollbar-thumb {
-    background: #666;
+    background: @color-grey-light;
     border-radius: @border-radius-normal;
 }
 .align-center {
@@ -61,11 +62,11 @@
     box-shadow: @box-shadow;
     
 }
-.btn:hover {
-    position: relative;
-    top:-2px;
-    box-shadow: @box-shadow-hover;
-}
+// .btn:hover {
+//     position: relative;
+//     top:-2px;
+//     box-shadow: @box-shadow-hover;
+// }
 
 .btn-primary {
     background-color: @color-primary;
@@ -83,13 +84,13 @@ h2 {
 //Forms
 input[type=text] {
     padding-left: 10px;
-    border: 2px solid @color-input-border;
+    border: 2px solid @color-grey-light;
     border-radius: @border-radius-normal;
 }
 
 input[type=password] {
     padding-left: 10px;
-    border: 2px solid @color-input-border;
+    border: 2px solid @color-grey-light;
     border-radius: @border-radius-normal;
 }
 
@@ -221,6 +222,9 @@ p {
     z-index: 0;
     height: 100%;
     font-size: 10pt;
+    @media @phone-size {
+        padding: 10px;
+    }
 }
 
 .content-light {
@@ -237,6 +241,11 @@ p {
     color: white;
 }
 
+.content-dark-grey {
+    background-color: @color-header;
+    color: white;
+}
+
 .content-warm {
     background-color: @color-warm;
 }
@@ -248,11 +257,135 @@ p {
     top: 0;;
     left: -480px;
 }
+.btn-big {
+    cursor: pointer;
+    padding: 15px 25px;
+    font-size: 20pt;
+    color: white;
+    background-color: @color-secondary;
+    border: none;
+    border-radius: @border-radius-extreme;
+}
+#splash-image-background {
+    background-image: url("../img/splash-photo1.jpeg");
+    background-size: cover;
+    // background-color: @color-warm;
+    // background-blend-mode: overlay;
+    width: 100%;
+    @media @phone-size {
+    }
+}
 #content-section-1 {
+    min-height: 480px;
     z-index: 6;
+    color: white;
+    @media @phone-size {
+        min-height: 260px;
+    }
     h1 {
+        margin-top: 40px;
         color: white;
     }
+}
+#get-started {
+    top: 180px;
+    @media @phone-size {
+        position: static;
+        margin: 10px auto;
+        display: block;
+        width: 95%;
+    }
+}
+
+#content-section-2 {
+    min-height: 480px;
+    z-index: 6;
+    h1 {
+        margin-top:40px;
+    }
+}
+#polygon2 {
+    position: absolute;
+    left:720px;
+    top: -240px;
+}
+#board-screenshot {
+    margin: 0 auto;
+    background-image: url("../img/board-screenshot1.png");
+    background-size: cover;
+    height: 400px;
+    width: 80%;
+    @media @phone-size {
+        display: block;
+        margin:0;
+        width: 100%;
+        height: 240px;;
+        background-size: contain;
+        background-repeat: no-repeat;
+    }
+}
+#polygon3 {
+
+}
+
+#content-section-3 {
+    min-height: 220px;
+    text-align: center;
+}
+#content-section-4 {
+    min-height: 480px;
+    background-color: @content-color-light;
+    @media @phone-size {
+        min-height: 360px;
+    }
+}
+#modal-screenshot {
+    margin: 0 auto;
+    top: -42px;
+    width: 480px;
+    min-height: 580px;
+    background-image: url("../img/board-screenshot2.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    border: 8px solid @content-color-light;
+    border-radius: @border-radius-extreme;
+    @media @phone-size {
+        background-size: cover;
+        background-position:center;
+        top:0;
+        width: 100%;
+        min-height: 360px;
+        border: none;
+        border-radius: 0;
+    }
+}
+#content-section-5 {
+    .btn-big {
+        margin-top: 30px;
+        @media @phone-size {
+            margin: 10px auto;
+            width: 100%;
+        }
+    }
+}
+#content-section-6 {
+    
+    .btn-big-warm {
+        @media @phone-size {
+            margin: 10px auto;
+            width: 100%;
+        }
+    }
+}
+.btn-big-warm {
+    cursor: pointer;
+    padding: 15px 25px;
+    font-size: 20pt;
+    color: white;
+    border: none;
+    border-radius: @border-radius-extreme;
+    background-color: @color-warm;
+    color: black;
 }
 
 
@@ -264,10 +397,13 @@ p {
     padding: 10px 20px;
 }
 .nav {
+    position: fixed;
+    top: 0;
+    left: 0;
     line-height:60px;
     z-index: 10;
     width: 100%;
-    height: 60px;
+    height: @header-height;
     color: white;
     background-color: @color-header;
     box-shadow: @box-shadow;
@@ -287,6 +423,7 @@ p {
         display: inline;
     }
     .btn {
+        cursor: pointer;
         margin: 0;
         height: 40px;
     }
@@ -326,6 +463,24 @@ p {
     form {
         display: inline;
     }
+}
+
+//Page container offset
+#splash-container {
+    top: @header-height;
+    overflow-x: hidden;
+}
+#login-container {
+    top: @header-height;
+}
+#register-container {
+    top: @header-height;
+}
+#user-profile-container {
+    top: @header-height;
+}
+#projects-container {
+    top: @header-height;
 }
 
 .side-nav {
@@ -576,7 +731,12 @@ input {
     background-color: #e0e0e0;
     border-radius: @border-radius-normal;
     .edit-task {
+        cursor: pointer;
         font-size: 12pt;
+        transition: color 0.5s;
+        &:hover {
+            color: @color-primary;
+        }
         // float: right;
     }
 }
@@ -631,6 +791,7 @@ input {
     width: 100%;
     min-height: 60px;
     background-color: rgb(97, 109, 110);
+    border-radius: @border-radius-normal;
 }
 
 //Task edit modal
@@ -697,7 +858,7 @@ input {
         padding: 10px;
         width: 100%;
         resize: none;
-        border: 2px solid @color-input-border;
+        border: 2px solid @color-grey-light;
         border-radius: @border-radius-normal;
     }
     h3 {
@@ -745,7 +906,7 @@ input {
     td {
         padding:10px;
         font-size: 14pt;
-        border-bottom: 2px solid @color-input-border;
+        border-bottom: 2px solid @color-grey-light;
     }
     a {
         margin-left: 10px;
@@ -773,4 +934,18 @@ input {
             color: @color-primary;
         }
     }
+}
+#edit-user-container {
+    display: none;
+    h3 {
+        margin: 30px auto 15px auto;
+    }
+    input[type=submit] {
+        margin: 15px auto;
+    }
+}
+#edit-user-cancel {
+    margin: 10px auto;
+    width: 25%;
+    height: 40px;
 }
